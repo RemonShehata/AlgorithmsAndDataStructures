@@ -143,7 +143,15 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
      * @return null if it doesn't exist.
      */
     override fun find(value: T): SinglyLinkedListNode<T>? {
-        TODO("Not yet implemented")
+        if (count == 0) return null
+
+        var current = head
+        while (current != null) {
+            if (current.value == value) return current
+            current = current.next
+        }
+
+        return null
     }
 
     /**
@@ -152,7 +160,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
      * @return null if it doesn't exist.
      */
     override fun find(node: SinglyLinkedListNode<T>): SinglyLinkedListNode<T>? {
-        TODO("Not yet implemented")
+        return find(node.value)
     }
 
     override fun indexOf(value: T): Int {
