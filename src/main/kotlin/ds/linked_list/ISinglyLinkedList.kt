@@ -1,7 +1,6 @@
 package ds.linked_list
-//TODO: implement iterator
 
-interface ISinglyLinkedList<T> {
+interface ISinglyLinkedList<T> : Iterator<T> {
 
     /**
      * adds value to the beginning of the [ISinglyLinkedList].
