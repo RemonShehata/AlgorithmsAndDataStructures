@@ -64,6 +64,41 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         }
     }
 
+    /**
+     * removes the first node that contains [value].
+     * @param [value] the value to be removed.
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
+    override fun remove(value: T): Boolean {
+        if (count == 0) return false
+        else if (count == 1) {
+            removeHead()
+            return true
+        }
+
+        var current = head
+        while (current!!.next != null) {
+            if (current.next!!.value == value) {
+                current.next = current.next!!.next
+                count--
+                break
+            }
+            current = current.next
+        }
+        return false
+    }
+
+    /**
+     * removes the first node that contains value equal to [node].
+     * @param [node] the node to be removed.
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
+    override fun remove(node: SinglyLinkedListNode<T>): Boolean {
+        return remove(node.value)
+    }
+
     override fun removeAtIndex(index: Int): Boolean {
         if (index > count || index < 0)
             throw IllegalArgumentException("index must be between 0 and count")
@@ -100,6 +135,24 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
 
     override fun contains(node: SinglyLinkedListNode<T>): Boolean {
         return contains(node.value)
+    }
+
+    /**
+     * finds [value] in the [ISinglyLinkedList]
+     * @return the first [SinglyLinkedListNode] if it existed.
+     * @return null if it doesn't exist.
+     */
+    override fun find(value: T): SinglyLinkedListNode<T>? {
+        TODO("Not yet implemented")
+    }
+
+    /**
+     * finds [node] in the [ISinglyLinkedList].
+     * @return the first [SinglyLinkedListNode] if it existed.
+     * @return null if it doesn't exist.
+     */
+    override fun find(node: SinglyLinkedListNode<T>): SinglyLinkedListNode<T>? {
+        TODO("Not yet implemented")
     }
 
     override fun indexOf(value: T): Int {
