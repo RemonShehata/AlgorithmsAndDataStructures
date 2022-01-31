@@ -15,24 +15,39 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
     var count = 0
         private set
 
+    // This is needed for iterator functionality.
     private var currentNode: SinglyLinkedListNode<T>? = null
 
+    /**
+     * adds value to the beginning of the [ISinglyLinkedList].
+     */
     override fun addHead(value: T) {
         val node = SinglyLinkedListNode<T>(value)
         addHead(node)
     }
 
+    /**
+     * adds [SinglyLinkedListNode] to the beginning of the [ISinglyLinkedList].
+     */
     override fun addHead(node: SinglyLinkedListNode<T>) {
         if (head != null) node.next = head
         head = node
         count++
     }
 
+    /**
+     * adds value at the specified index of the [ISinglyLinkedList].
+     * if [ISinglyLinkedList] is empty, the value to the head.
+     */
     override fun addAtIndex(index: Int, value: T) {
         val node = SinglyLinkedListNode<T>(value)
         addAtIndex(index, node)
     }
 
+    /**
+     * adds [SinglyLinkedListNode] at the specified index of the [ISinglyLinkedList].
+     * if [ISinglyLinkedList] is empty, the node to the head.
+     */
     override fun addAtIndex(index: Int, node: SinglyLinkedListNode<T>) {
         if (index > count || index < 0)
             throw IllegalArgumentException("index must be between 0 and count")
@@ -55,6 +70,11 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         count++
     }
 
+    /**
+     * removes the first node in the [ISinglyLinkedList].
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
     override fun removeHead(): Boolean {
         return if (count == 0) false
         else {
@@ -99,6 +119,11 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         return remove(node.value)
     }
 
+    /**
+     * removes the node at the specified index of the [ISinglyLinkedList].
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
     override fun removeAtIndex(index: Int): Boolean {
         if (index > count || index < 0)
             throw IllegalArgumentException("index must be between 0 and count")
@@ -123,6 +148,11 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         return true
     }
 
+    /**
+     * check the [ISinglyLinkedList] contains a specific value.
+     * @return true if the value exist.
+     * @return false if the value doesn't exist.
+     */
     override fun contains(value: T): Boolean {
         if (count == 0) return false
         var current = head
@@ -133,6 +163,11 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         return false
     }
 
+    /**
+     * check the [ISinglyLinkedList] contains a specific node with value equal to [node]'s value.
+     * @return true if the value exist.
+     * @return false if the value doesn't exist.
+     */
     override fun contains(node: SinglyLinkedListNode<T>): Boolean {
         return contains(node.value)
     }
@@ -163,6 +198,10 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         return find(node.value)
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in the list,
+     * or -1 if the specified element is not contained in the [ISinglyLinkedList].
+     */
     override fun indexOf(value: T): Int {
         var index = 0
         val current = head
@@ -173,10 +212,17 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         return -1
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in the list,
+     * or -1 if the specified element is not contained in the [ISinglyLinkedList].
+     */
     override fun indexOf(node: SinglyLinkedListNode<T>): Int {
         return indexOf(node.value)
     }
 
+    /**
+     * reset everything.
+     */
     override fun clear() {
         head = null
         count = 0
