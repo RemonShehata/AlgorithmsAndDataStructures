@@ -588,4 +588,38 @@ internal class SinglyLinkedListTest {
         assertEquals(expectedValue, result)
     }
     //endregion
+
+    //region clear tests
+    @Test
+    fun `given an empty list, when clear is called, count is 0 and head is null`(){
+        // GIVEN
+        val emptySinglyLinkedList = SinglyLinkedList<Int>()
+
+        // WHEN
+        emptySinglyLinkedList.clear()
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, emptySinglyLinkedList.count)
+        assertNull(emptySinglyLinkedList.head)
+    }
+
+    @Test
+    fun `given a list, when clear is called, count is 0 and head is null`(){
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        singlyLinkedList.clear()
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, singlyLinkedList.count)
+        assertNull(singlyLinkedList.head)
+    }
+    //endregion
 }
