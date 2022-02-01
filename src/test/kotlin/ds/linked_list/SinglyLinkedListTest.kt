@@ -55,7 +55,7 @@ internal class SinglyLinkedListTest {
         assertEquals(valueToInsert, singlyLinkedList.head!!.value)
     }
 
-    @Test()
+    @Test
     fun `given list and node, when add at index is called with index -1, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
@@ -73,7 +73,7 @@ internal class SinglyLinkedListTest {
         }
     }
 
-    @Test()
+    @Test
     fun `given list and node, when add at index is called with index greater than count, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
@@ -91,7 +91,7 @@ internal class SinglyLinkedListTest {
         }
     }
 
-    @Test()
+    @Test
     fun `given list with one node, when add at index is called with index 1, the value is added after head`() {
         // GIVEN
         val oneItemSinglyLinkedList = SinglyLinkedList<Int>().also { it.addHead(1) }
@@ -107,7 +107,7 @@ internal class SinglyLinkedListTest {
         assertEquals(expectedCount, oneItemSinglyLinkedList.count)
     }
 
-    @Test()
+    @Test
     fun `given list with one node, when add at index is called with index 0, the value is added at head`() {
         // GIVEN
         val oneItemSinglyLinkedList = SinglyLinkedList<Int>()
@@ -120,6 +120,157 @@ internal class SinglyLinkedListTest {
 
         // THEN
         assertEquals(nodeValue, oneItemSinglyLinkedList.head!!.value)
+        assertEquals(expectedCount, oneItemSinglyLinkedList.count)
+    }
+    //endregion
+
+    // region remove tests
+    @Test
+    fun `given empty list, when removeHead is called, return false`() {
+        // GIVEN
+        val emptyLinkedList = SinglyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyLinkedList.removeHead()
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given one item list, when removeHead is called, return true and remove the head`() {
+        // GIVEN
+        val oneItemSinglyLinkedList = SinglyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemSinglyLinkedList.removeHead()
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertEquals(expectedCount, oneItemSinglyLinkedList.count)
+        assertNull(oneItemSinglyLinkedList.head)
+    }
+
+    @Test
+    fun `given multiple node-list, when removeHead is called, return true and update head and count`() {
+        // GIVEN
+        val multiItemSinglyLinkedList = SinglyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemSinglyLinkedList.removeHead()
+
+        // THEN
+        val expectedCount = 2
+        val expectedHeadNodeValue = 2
+        assertTrue(result)
+        assertEquals(expectedCount, multiItemSinglyLinkedList.count)
+        assertEquals(expectedHeadNodeValue, multiItemSinglyLinkedList.head!!.value)
+    }
+
+    @Test
+    fun `given empty list, when remove is called with any value, return false`() {
+        // GIVEN
+        val emptyLinkedList = SinglyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyLinkedList.remove(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given one item list, when remove is called with existing value, return true and update the list`() {
+        // GIVEN
+        val oneItemSinglyLinkedList = SinglyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemSinglyLinkedList.remove(1)
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertNull(oneItemSinglyLinkedList.head)
+        assertEquals(expectedCount, oneItemSinglyLinkedList.count)
+    }
+
+    @Test
+    fun `given one item list, when remove is called with non-existing value, return false and don't update the list`() {
+        // GIVEN
+        val oneItemSinglyLinkedList = SinglyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemSinglyLinkedList.remove(5)
+
+        // THEN
+        val expectedCount = 1
+        assertFalse(result)
+        assertNotNull(oneItemSinglyLinkedList.head)
+        assertEquals(expectedCount, oneItemSinglyLinkedList.count)
+    }
+
+
+    @Test
+    fun `given multiple node-list, when remove is called with existing value, return true and update the list`() {
+        // GIVEN
+        val multiItemSinglyLinkedList = SinglyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemSinglyLinkedList.remove(2)
+
+        // THEN
+        val expectedHeadNextValue = 3
+        val expectedCount = 2
+        assertTrue(result)
+        assertNotNull(multiItemSinglyLinkedList.head)
+        assertEquals(expectedCount, multiItemSinglyLinkedList.count)
+        assertEquals(expectedHeadNextValue, multiItemSinglyLinkedList.head!!.next!!.value)
+    }
+
+    @Test
+    fun `given multiple node-list, when remove is called with existing value equal to head, return true and update the list`() {
+        // GIVEN
+        val multiItemSinglyLinkedList = SinglyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemSinglyLinkedList.remove(1)
+
+        // THEN
+        val expectedHeadNextValue = 3
+        val expectedHeadValue = 2
+        val expectedCount = 2
+        assertTrue(result)
+        assertNotNull(multiItemSinglyLinkedList.head)
+        assertEquals(expectedCount, multiItemSinglyLinkedList.count)
+        assertEquals(expectedHeadValue, multiItemSinglyLinkedList.head!!.value)
+        assertEquals(expectedHeadNextValue, multiItemSinglyLinkedList.head!!.next!!.value)
+    }
+
+    @Test
+    fun `given multiple node-list, when remove is called with non-existing value, return false and don't update the list`() {
+        // GIVEN
+        val oneItemSinglyLinkedList = SinglyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemSinglyLinkedList.remove(5)
+
+        // THEN
+        val expectedCount = 1
+        assertFalse(result)
+        assertNotNull(oneItemSinglyLinkedList.head)
         assertEquals(expectedCount, oneItemSinglyLinkedList.count)
     }
 
