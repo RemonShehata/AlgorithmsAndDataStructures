@@ -8,7 +8,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
 
     var head: SinglyLinkedListNode<T>? = null
         private set(value) {
-            currentNode = value
+            cursor = value
             field = value
         }
 
@@ -16,7 +16,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         private set
 
     // This is needed for iterator functionality.
-    private var currentNode: SinglyLinkedListNode<T>? = null
+    private var cursor: SinglyLinkedListNode<T>? = null
 
     /**
      * adds value to the beginning of the [ISinglyLinkedList].
@@ -230,11 +230,10 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         count = 0
     }
 
-
-    override fun hasNext() = currentNode != null
+    override fun hasNext() = cursor != null
     override fun next(): T {
-        val temp = currentNode
-        currentNode = currentNode!!.next
+        val temp = cursor
+        cursor = cursor!!.next
         return temp!!.value
     }
 }
