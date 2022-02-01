@@ -1,6 +1,6 @@
 package ds.linked_list
 
-class SinglyLinkedListNode<T>(var value: T) {
+data class SinglyLinkedListNode<T>(var value: T) {
     var next: SinglyLinkedListNode<T>? = null
 }
 
