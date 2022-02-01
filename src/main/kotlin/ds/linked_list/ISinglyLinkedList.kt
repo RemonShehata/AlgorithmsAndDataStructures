@@ -15,12 +15,14 @@ interface ISinglyLinkedList<T> : Iterator<T> {
     /**
      * adds value at the specified index of the [ISinglyLinkedList].
      * if [ISinglyLinkedList] is empty, the value to the head.
+     * note that we are a zero index based list.
      */
     fun addAtIndex(index: Int, value: T)
 
     /**
      * adds [SinglyLinkedListNode] at the specified index of the [ISinglyLinkedList].
      * if [ISinglyLinkedList] is empty, the node to the head.
+     * note that we are a zero index based list.
      */
     fun addAtIndex(index: Int, node: SinglyLinkedListNode<T>)
 
@@ -35,6 +37,7 @@ interface ISinglyLinkedList<T> : Iterator<T> {
      * removes the node at the specified index of the [ISinglyLinkedList].
      * @return true if the value was removed.
      * @return false if the value did not exist.
+     * note that we are a zero index based list.
      */
     fun removeAtIndex(index: Int): Boolean
 
@@ -85,12 +88,14 @@ interface ISinglyLinkedList<T> : Iterator<T> {
     /**
      * Returns the index of the first occurrence of the specified element in the list,
      * or -1 if the specified element is not contained in the [ISinglyLinkedList].
+     * note that we are a zero index based list.
      */
     fun indexOf(value: T): Int
 
     /**
      * Returns the index of the first occurrence of the specified element in the list,
      * or -1 if the specified element is not contained in the [ISinglyLinkedList].
+     * note that we are a zero index based list.
      */
     fun indexOf(node: SinglyLinkedListNode<T>): Int
 

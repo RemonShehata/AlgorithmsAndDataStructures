@@ -520,7 +520,7 @@ internal class SinglyLinkedListTest {
     }
 
     @Test
-    fun `given a list with many nodes, when indexOf is called with value of head, then returns 1`() {
+    fun `given a list with many nodes, when indexOf is called with value of head, then returns 0`() {
         // GIVEN
         val singlyLinkedList = SinglyLinkedList<Int>().also {
             it.addHead(1)
@@ -532,12 +532,12 @@ internal class SinglyLinkedListTest {
         val result = singlyLinkedList.indexOf(3)
 
         // THEN
-        val expectedValue = 1
+        val expectedValue = 0
         assertEquals(expectedValue, result)
     }
 
     @Test
-    fun `given a list with many nodes, when indexOf is called with value of the last node, then returns the index which is equal to count`() {
+    fun `given a list with many nodes, when indexOf is called with value of the last node, then returns the index which is equal to count - 1`() {
         // GIVEN
         val singlyLinkedList = SinglyLinkedList<Int>().also {
             it.addHead(1)
@@ -549,9 +549,9 @@ internal class SinglyLinkedListTest {
         val result = singlyLinkedList.indexOf(1)
 
         // THEN
-        val expectedValue = 3
+        val expectedValue = 2
         assertEquals(expectedValue, result)
-        assertEquals(expectedValue, singlyLinkedList.count)
+        assertEquals(expectedValue, singlyLinkedList.count - 1)
     }
 
     @Test
@@ -567,7 +567,7 @@ internal class SinglyLinkedListTest {
         val result = singlyLinkedList.indexOf(2)
 
         // THEN
-        val expectedValue = 2
+        val expectedValue = 1
         assertEquals(expectedValue, result)
     }
 

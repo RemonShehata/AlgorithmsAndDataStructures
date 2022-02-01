@@ -38,6 +38,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
     /**
      * adds value at the specified index of the [ISinglyLinkedList].
      * if [ISinglyLinkedList] is empty, the value to the head.
+     * note that we are a zero index based list.
      */
     override fun addAtIndex(index: Int, value: T) {
         val node = SinglyLinkedListNode<T>(value)
@@ -47,6 +48,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
     /**
      * adds [SinglyLinkedListNode] at the specified index of the [ISinglyLinkedList].
      * if [ISinglyLinkedList] is empty, the node to the head.
+     * note that we are a zero index based list.
      */
     override fun addAtIndex(index: Int, node: SinglyLinkedListNode<T>) {
         if (index > count || index < 0)
@@ -123,6 +125,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
      * removes the node at the specified index of the [ISinglyLinkedList].
      * @return true if the value was removed.
      * @return false if the value did not exist.
+     * note that we are a zero index based list.
      */
     override fun removeAtIndex(index: Int): Boolean {
         if (index > count || index < 0)
@@ -201,10 +204,11 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
     /**
      * Returns the index of the first occurrence of the specified element in the list,
      * or -1 if the specified element is not contained in the [ISinglyLinkedList].
+     * note that we are a zero index based list.
      */
     override fun indexOf(value: T): Int {
         if (count == 0) return -1
-        var index = 1
+        var index = 0
         var current = head
         while (current != null) {
             if (current.value == value) return index
@@ -217,6 +221,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
     /**
      * Returns the index of the first occurrence of the specified element in the list,
      * or -1 if the specified element is not contained in the [ISinglyLinkedList].
+     * note that we are a zero index based list.
      */
     override fun indexOf(node: SinglyLinkedListNode<T>): Int {
         return indexOf(node.value)
