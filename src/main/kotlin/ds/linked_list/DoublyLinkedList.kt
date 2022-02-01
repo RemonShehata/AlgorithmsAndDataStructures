@@ -6,16 +6,21 @@ class DoublyLinkedListNode<T>(var value: T) {
     var next: DoublyLinkedListNode<T>? = null
 }
 
-// TODO: make sure iterator works + move the it to the interface
-class DoublyLinkedList<T> : IDoublyLinkedList<T>, Iterator<T> {
+class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     var tail: DoublyLinkedListNode<T>? = null
         private set
 
     var head: DoublyLinkedListNode<T>? = null
-        private set
+        private set(value) {
+            currentNode = value
+            field = value
+        }
 
     var count: Int = 0
         private set
+
+    // This is needed for iterator functionality.
+    private var currentNode: DoublyLinkedListNode<T>? = null
 
     override fun addHead(value: T) {
         val node = DoublyLinkedListNode<T>(value)
@@ -161,15 +166,10 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T>, Iterator<T> {
         count = 0
     }
 
-    private val currentNode: DoublyLinkedListNode<T>? by lazy { head }
-    override fun hasNext(): Boolean {
-        // if (!this::currentNode.isInitialized) currentNode = head!!
-        return (currentNode!!.next != null && currentNode != tail)
-    }
-
+    override fun hasNext() = currentNode != null
     override fun next(): T {
-        val v = currentNode!!.value
-        //currentNode = currentNode!!.next
-        return v
+        val temp = currentNode
+        currentNode = currentNode!!.next
+        return temp!!.value
     }
 }

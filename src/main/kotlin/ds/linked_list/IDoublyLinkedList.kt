@@ -1,6 +1,6 @@
 package ds.linked_list
 
-interface IDoublyLinkedList<T> {
+interface IDoublyLinkedList<T> : Iterator<T> {
     fun addHead(value: T)
     fun addHead(node: DoublyLinkedListNode<T>)
     fun addTail(value: T)
