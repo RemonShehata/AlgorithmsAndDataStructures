@@ -422,4 +422,86 @@ internal class SinglyLinkedListTest {
         assertFalse(result)
     }
     //endregion
+
+    //region find tests
+    @Test
+    fun `given empty list, when find is called with any value, then returns null`() {
+        // GIVEN
+        val emptySinglyLinkedList = SinglyLinkedList<Int>()
+
+        // WHEN
+        val result = emptySinglyLinkedList.find(5)
+
+        // THEN
+        assertNull(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with value of head, then returns head`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val nodeToFind = SinglyLinkedListNode<Int>(3)
+        val result = singlyLinkedList.find(nodeToFind)
+
+        // THEN
+        assertEquals(result, singlyLinkedList.head)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with value of the last node, then returns the correct node`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val nodeToFind = SinglyLinkedListNode<Int>(1)
+        val result = singlyLinkedList.find(nodeToFind)
+
+        // THEN
+        assertEquals(result, singlyLinkedList.head!!.next!!.next)
+        assertNull(result!!.next)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with value in the middle, then return the correct node`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.find(2)
+
+        // THEN
+        val actualMiddleValue = singlyLinkedList.head!!.next
+        assertEquals(result, actualMiddleValue)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with non-exist value, then returns null`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.find(5)
+
+        // THEN
+        assertNull(result)
+    }
+    //endregion
 }
