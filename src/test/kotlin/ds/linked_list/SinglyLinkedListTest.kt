@@ -18,7 +18,7 @@ internal class SinglyLinkedListTest {
     }
     //endregion
 
-    //region add tests
+    //region addHead tests
     @Test
     fun `given empty list, when add head is called, count is updated and head is not null`() {
 
@@ -54,7 +54,9 @@ internal class SinglyLinkedListTest {
         assertEquals(expectedCount, singlyLinkedList.count)
         assertEquals(valueToInsert, singlyLinkedList.head!!.value)
     }
+    //endregion
 
+    //region addAtIndex tests
     @Test
     fun `given list and node, when add at index is called with index -1, exception is thrown`() {
         // GIVEN
@@ -124,7 +126,7 @@ internal class SinglyLinkedListTest {
     }
     //endregion
 
-    // region remove tests
+    // region removeHead tests
     @Test
     fun `given empty list, when removeHead is called, return false`() {
         // GIVEN
@@ -172,6 +174,9 @@ internal class SinglyLinkedListTest {
         assertEquals(expectedHeadNodeValue, multiItemSinglyLinkedList.head!!.value)
     }
 
+    //endregion
+
+    //region remove tests
     @Test
     fun `given empty list, when remove is called with any value, return false`() {
         // GIVEN
