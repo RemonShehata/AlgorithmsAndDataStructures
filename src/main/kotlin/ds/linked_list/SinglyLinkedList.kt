@@ -92,7 +92,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
      */
     override fun remove(value: T): Boolean {
         if (count == 0) return false
-        else if (count == 1) {
+        else if (value == head!!.value) {
             removeHead()
             return true
         }
@@ -102,7 +102,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
             if (current.next!!.value == value) {
                 current.next = current.next!!.next
                 count--
-                break
+                return true
             }
             current = current.next
         }
