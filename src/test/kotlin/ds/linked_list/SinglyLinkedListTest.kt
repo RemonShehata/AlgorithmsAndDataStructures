@@ -591,7 +591,7 @@ internal class SinglyLinkedListTest {
 
     //region clear tests
     @Test
-    fun `given an empty list, when clear is called, count is 0 and head is null`(){
+    fun `given an empty list, when clear is called, count is 0 and head is null`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
 
@@ -605,7 +605,7 @@ internal class SinglyLinkedListTest {
     }
 
     @Test
-    fun `given a list, when clear is called, count is 0 and head is null`(){
+    fun `given a list, when clear is called, count is 0 and head is null`() {
         // GIVEN
         val singlyLinkedList = SinglyLinkedList<Int>().also {
             it.addHead(1)
@@ -620,6 +620,27 @@ internal class SinglyLinkedListTest {
         val expectedCount = 0
         assertEquals(expectedCount, singlyLinkedList.count)
         assertNull(singlyLinkedList.head)
+    }
+    //endregion
+
+    //region combine indexOf and addAtIndex tests
+    @Test
+    fun `given a list, when addAtIndex is called with value, then indexOf return the same index to that value`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val addedValue = 5
+        val indexOfAddedValue = 1
+        singlyLinkedList.addAtIndex(indexOfAddedValue, addedValue)
+
+        // THEN
+        val expectedValue = singlyLinkedList.indexOf(addedValue)
+        assertEquals(expectedValue, indexOfAddedValue)
     }
     //endregion
 }
