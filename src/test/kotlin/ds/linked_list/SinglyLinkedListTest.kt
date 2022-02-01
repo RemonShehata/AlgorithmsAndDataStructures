@@ -344,4 +344,82 @@ internal class SinglyLinkedListTest {
         assertNull(oneItemSinglyLinkedList.head)
     }
     //endregion
+
+    //region contains tests
+    @Test
+    fun `given empty list, when contains is called with any value, then returns false`() {
+        // GIVEN
+        val emptySinglyLinkedList = SinglyLinkedList<Int>()
+
+        // WHEN
+        val result = emptySinglyLinkedList.contains(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with value of head, then returns true`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.contains(3)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with value of the last node, then returns true`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.contains(1)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with value in the middle, then returns true`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.contains(2)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with non-exist value, then returns false`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.contains(5)
+
+        // THEN
+        assertFalse(result)
+    }
+    //endregion
 }
