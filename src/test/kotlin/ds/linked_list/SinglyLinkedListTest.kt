@@ -287,7 +287,6 @@ internal class SinglyLinkedListTest {
     fun `given list and node value, when removeAtIndex is called with index -1, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
-        val nodeValue = 5
 
         // WHEN
         val index = -1
@@ -300,7 +299,6 @@ internal class SinglyLinkedListTest {
     fun `given list and node, when removeAtIndex is called with index greater than count, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
-        val nodeValue = 5
 
         // WHEN
         val index = 2
