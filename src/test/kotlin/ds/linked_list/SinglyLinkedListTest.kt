@@ -504,4 +504,88 @@ internal class SinglyLinkedListTest {
         assertNull(result)
     }
     //endregion
+
+    //region indexOf tests
+    @Test
+    fun `given empty list, when indexOf is called with any value, then returns -1`() {
+        // GIVEN
+        val emptySinglyLinkedList = SinglyLinkedList<Int>()
+
+        // WHEN
+        val result = emptySinglyLinkedList.indexOf(5)
+
+        // THEN
+        val expectedValue = -1
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with value of head, then returns 1`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.indexOf(3)
+
+        // THEN
+        val expectedValue = 1
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with value of the last node, then returns the index which is equal to count`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.indexOf(1)
+
+        // THEN
+        val expectedValue = 3
+        assertEquals(expectedValue, result)
+        assertEquals(expectedValue, singlyLinkedList.count)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with value in the middle, then return the correct index`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.indexOf(2)
+
+        // THEN
+        val expectedValue = 2
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with non-exist value, then returns -1`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = singlyLinkedList.indexOf(5)
+
+        // THEN
+        val expectedValue = -1
+        assertEquals(expectedValue, result)
+    }
+    //endregion
 }

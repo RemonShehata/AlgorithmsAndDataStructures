@@ -203,11 +203,13 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
      * or -1 if the specified element is not contained in the [ISinglyLinkedList].
      */
     override fun indexOf(value: T): Int {
-        var index = 0
-        val current = head
-        while (current!!.next != null) {
+        if (count == 0) return -1
+        var index = 1
+        var current = head
+        while (current != null) {
             if (current.value == value) return index
             index++
+            current = current.next
         }
         return -1
     }
