@@ -124,6 +124,27 @@ internal class SinglyLinkedListTest {
         assertEquals(nodeValue, oneItemSinglyLinkedList.head!!.value)
         assertEquals(expectedCount, oneItemSinglyLinkedList.count)
     }
+
+    @Test
+    fun `given list, when addAtIndex is called with index equal count, the value is added at the end of the list`() {
+        // GIVEN
+        val singlyLinkedList = SinglyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+        }
+
+        val nodeValue = 5
+        val expectedCount = 3
+
+        // WHEN
+        val index = 2
+        singlyLinkedList.addAtIndex(index, nodeValue)
+
+        // THEN
+        assertEquals(nodeValue, singlyLinkedList.head!!.next!!.next!!.value)
+        assertNull(singlyLinkedList.head!!.next!!.next!!.next)
+        assertEquals(expectedCount, singlyLinkedList.count)
+    }
     //endregion
 
     // region removeHead tests
