@@ -153,6 +153,22 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         return contains(node.value)
     }
 
+    override fun find(node: DoublyLinkedListNode<T>): DoublyLinkedListNode<T>? {
+        return find(node.value)
+    }
+
+    override fun find(value: T): DoublyLinkedListNode<T>? {
+        if (count == 0) return null
+
+        var current = head
+        while (current != null) {
+            if (current.value == value) return current
+            current = current.next
+        }
+
+        return null
+    }
+
     override fun indexOf(value: T): Int {
         var current = head
         var index = 0
