@@ -1,6 +1,7 @@
 package ds.linked_list
 
-
+// TODO: make optimization for addAtIndex / removeAtIndex
+// see if the index is closer to the head or tail and start from there.
 class DoublyLinkedListNode<T>(var value: T) {
     var previous: DoublyLinkedListNode<T>? = null
     var next: DoublyLinkedListNode<T>? = null
