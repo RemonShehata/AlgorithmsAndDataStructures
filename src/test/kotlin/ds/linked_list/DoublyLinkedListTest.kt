@@ -502,4 +502,86 @@ internal class DoublyLinkedListTest {
         assertFalse(result)
     }
     //endregion
+
+    //region find tests
+    @Test
+    fun `given empty list, when find is called with any value, then returns null`() {
+        // GIVEN
+        val emptyDoublyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyDoublyLinkedList.find(5)
+
+        // THEN
+        assertNull(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with value of head, then returns head`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val nodeToFind = DoublyLinkedListNode<Int>(3)
+        val result = doublyLinkedList.find(nodeToFind)
+
+        // THEN
+        assertEquals(result, doublyLinkedList.head)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with value of the tail, then returns tail node`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val nodeToFind = DoublyLinkedListNode<Int>(1)
+        val result = doublyLinkedList.find(nodeToFind)
+
+        // THEN
+        assertEquals(result, doublyLinkedList.tail)
+        assertNull(result!!.next)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with value in the middle, then return the correct node`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.find(2)
+
+        // THEN
+        val actualMiddleValue = doublyLinkedList.head!!.next
+        assertEquals(result, actualMiddleValue)
+    }
+
+    @Test
+    fun `given a list with many nodes, when find is called with non-exist value, then returns null`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.find(5)
+
+        // THEN
+        assertNull(result)
+    }
+    //endregion
 }

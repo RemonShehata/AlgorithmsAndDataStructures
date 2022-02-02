@@ -15,6 +15,9 @@ interface IDoublyLinkedList<T> : Iterator<T> {
     fun contains(value: T): Boolean
     fun contains(node: DoublyLinkedListNode<T>): Boolean
 
+    fun find(value: T): DoublyLinkedListNode<T>?
+    fun find(node: DoublyLinkedListNode<T>): DoublyLinkedListNode<T>?
+
     fun indexOf(value: T): Int
     fun indexOf(node: DoublyLinkedListNode<T>): Int
 
