@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-internal class DoublyLinkedListNodeTest {
+internal class DoublyLinkedListTest {
 
     //region head and count tests
     @Test
