@@ -241,4 +241,55 @@ internal class DoublyLinkedListNodeTest {
         assertEquals(expectedCount, doublyLinkedList.count)
     }
     //endregion
+
+    //region removeHead tests
+    @Test
+    fun `given empty list, when removeHead is called, return false`() {
+        // GIVEN
+        val emptyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyLinkedList.removeHead()
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given one item list, when removeHead is called, return true and remove the head and tail`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemDoublyLinkedList.removeHead()
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+        assertNull(oneItemDoublyLinkedList.head)
+        assertNull(oneItemDoublyLinkedList.tail)
+    }
+
+    @Test
+    fun `given multiple node-list, when removeHead is called, return true and update head and count`() {
+        // GIVEN
+        val multiItemDoublyLinkedList = DoublyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemDoublyLinkedList.removeHead()
+
+        // THEN
+        val expectedCount = 2
+        val expectedHeadNodeValue = 2
+        assertTrue(result)
+        assertEquals(expectedCount, multiItemDoublyLinkedList.count)
+        assertEquals(expectedHeadNodeValue, multiItemDoublyLinkedList.head!!.value)
+    }
+
+    //endregion
 }
