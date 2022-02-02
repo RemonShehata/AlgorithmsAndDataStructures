@@ -37,7 +37,8 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
 
     /**
      * adds value at the specified index of the [ISinglyLinkedList].
-     * if [ISinglyLinkedList] is empty, the value to the head.
+     * if @param[index] == 0, add the @param[value] to the head.
+     * if @param[index] == count - 1, add the @param[value] to the tail.
      * note that we are a zero index based list.
      */
     override fun addAtIndex(index: Int, value: T) {
@@ -47,7 +48,8 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
 
     /**
      * adds [SinglyLinkedListNode] at the specified index of the [ISinglyLinkedList].
-     * if [ISinglyLinkedList] is empty, the node to the head.
+     *if @param[index] == 0, add the @param[node] to the head.
+     * if @param[index] == count - 1, add the @param[node] to the tail.
      * note that we are a zero index based list.
      */
     override fun addAtIndex(index: Int, node: SinglyLinkedListNode<T>) {
