@@ -11,7 +11,7 @@ interface ISortedList<T : Comparable<T>>: Iterator<T> {
     fun add(value: T)
 
     /**
-     * adds [SortedListNode] to the beginning of the [ISortedList].
+     * adds [SortedListNode] in sort order in [ISortedList].
      */
     fun add(node: SortedListNode<T>)
 
