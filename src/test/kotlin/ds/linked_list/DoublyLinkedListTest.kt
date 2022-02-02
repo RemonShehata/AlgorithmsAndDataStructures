@@ -584,4 +584,88 @@ internal class DoublyLinkedListTest {
         assertNull(result)
     }
     //endregion
+
+    //region indexOf tests
+    @Test
+    fun `given empty list, when indexOf is called with any value, then returns -1`() {
+        // GIVEN
+        val emptyDoublyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyDoublyLinkedList.indexOf(5)
+
+        // THEN
+        val expectedValue = -1
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with value of head, then returns 0`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.indexOf(3)
+
+        // THEN
+        val expectedValue = 0
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with value of tail, then returns the index which is equal to count - 1`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.indexOf(1)
+
+        // THEN
+        val expectedValue = 2
+        assertEquals(expectedValue, result)
+        assertEquals(expectedValue, doublyLinkedList.count - 1)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with value in the middle, then return the correct index`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.indexOf(2)
+
+        // THEN
+        val expectedValue = 1
+        assertEquals(expectedValue, result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when indexOf is called with non-exist value, then returns -1`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.indexOf(5)
+
+        // THEN
+        val expectedValue = -1
+        assertEquals(expectedValue, result)
+    }
+    //endregion
 }

@@ -170,9 +170,11 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     }
 
     override fun indexOf(value: T): Int {
+        if (count == 0) return -1
+
         var current = head
         var index = 0
-        while (current!!.next != null) {
+        while (current != null) {
             if (current.value == value) return index
             current = current.next
             index++
