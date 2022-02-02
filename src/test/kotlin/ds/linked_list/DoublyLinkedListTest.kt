@@ -668,4 +668,39 @@ internal class DoublyLinkedListTest {
         assertEquals(expectedValue, result)
     }
     //endregion
+
+    //region clear tests
+    @Test
+    fun `given an empty list, when clear is called, count is 0 and head is null`() {
+        // GIVEN
+        val emptyDoublyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        emptyDoublyLinkedList.clear()
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, emptyDoublyLinkedList.count)
+        assertNull(emptyDoublyLinkedList.head)
+        assertNull(emptyDoublyLinkedList.tail)
+    }
+
+    @Test
+    fun `given a list, when clear is called, count is 0 and head is null`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        doublyLinkedList.clear()
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, doublyLinkedList.count)
+        assertNull(doublyLinkedList.head)
+    }
+    //endregion
 }
