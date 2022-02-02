@@ -22,11 +22,17 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     // This is needed for iterator functionality.
     private var cursor: DoublyLinkedListNode<T>? = null
 
+    /**
+     * adds value to the beginning of the [IDoublyLinkedList].
+     */
     override fun addHead(value: T) {
         val node = DoublyLinkedListNode<T>(value)
         addHead(node)
     }
 
+    /**
+     * adds [DoublyLinkedListNode] to the beginning of the [IDoublyLinkedList].
+     */
     override fun addHead(node: DoublyLinkedListNode<T>) {
         val temp = head
         head = node
@@ -37,11 +43,18 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         count++
     }
 
+    /**
+     * adds value to the end of the [IDoublyLinkedList].
+     */
     override fun addTail(value: T) {
         val node = DoublyLinkedListNode<T>(value)
         addTail(node)
     }
 
+
+    /**
+     * adds [DoublyLinkedListNode] to the end of the [IDoublyLinkedList].
+     */
     override fun addTail(node: DoublyLinkedListNode<T>) {
         if (count == 0) {
             head = node
@@ -55,11 +68,21 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         count++
     }
 
+    /**
+     * adds value at the specified index of the [IDoublyLinkedList].
+     * if @param[index] == 0, add the @param[value] to the head.
+     * note that we are a zero index based list.
+     */
     override fun addAtIndex(index: Int, value: T) {
         val node = DoublyLinkedListNode<T>(value)
         addAtIndex(index, node)
     }
 
+    /**
+     * adds [DoublyLinkedListNode] at the specified index of the [IDoublyLinkedList].
+     * if @param[index] == 0, add the @param[node] to the head.
+     * note that we are a zero index based list.
+     */
     override fun addAtIndex(index: Int, node: DoublyLinkedListNode<T>) {
         if (index > count || index < 0)
             throw IllegalArgumentException("index must be between 0 and count")
@@ -87,6 +110,11 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         count++
     }
 
+    /**
+     * removes the first node in the [IDoublyLinkedList].
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
     override fun removeHead(): Boolean {
         if (count == 0) return false
 
@@ -100,6 +128,11 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         return true
     }
 
+    /**
+     * removes the last node in the [IDoublyLinkedList].
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
     override fun removeTail(): Boolean {
         if (count == 0) return false
 
@@ -115,6 +148,12 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         return true
     }
 
+    /**
+     * removes the node at the specified index of the [IDoublyLinkedList].
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     * note that we are a zero index based list.
+     */
     override fun removeAtIndex(index: Int): Boolean {
         if (index > count || index < 0)
             throw IllegalArgumentException("index must be between 0 and count")
@@ -139,6 +178,11 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         }
     }
 
+    /**
+     * check the [IDoublyLinkedList] contains a specific value.
+     * @return true if the value exist.
+     * @return false if the value doesn't exist.
+     */
     override fun contains(value: T): Boolean {
         if (count == 0) return false
         var current = head
@@ -149,14 +193,29 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         return false
     }
 
+    /**
+     * check the [IDoublyLinkedList] contains a specific node with value equal to [node]'s value.
+     * @return true if the value exist.
+     * @return false if the value doesn't exist.
+     */
     override fun contains(node: DoublyLinkedListNode<T>): Boolean {
         return contains(node.value)
     }
 
+    /**
+     * finds the value of [node] in the [IDoublyLinkedList].
+     * @return the first [DoublyLinkedListNode] if it existed.
+     * @return null if it doesn't exist.
+     */
     override fun find(node: DoublyLinkedListNode<T>): DoublyLinkedListNode<T>? {
         return find(node.value)
     }
 
+    /**
+     * finds [value] in the [IDoublyLinkedList].
+     * @return the first [DoublyLinkedListNode] if it existed.
+     * @return null if it doesn't exist.
+     */
     override fun find(value: T): DoublyLinkedListNode<T>? {
         if (count == 0) return null
 
@@ -169,6 +228,11 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         return null
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in the list,
+     * or -1 if the specified element is not contained in the [IDoublyLinkedList].
+     * note that we are a zero index based list.
+     */
     override fun indexOf(value: T): Int {
         if (count == 0) return -1
 
@@ -182,10 +246,18 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         return -1
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in the list,
+     * or -1 if the specified element is not contained in the [IDoublyLinkedList].
+     * note that we are a zero index based list.
+     */
     override fun indexOf(node: DoublyLinkedListNode<T>): Int {
         return indexOf(node.value)
     }
 
+    /**
+     * reset everything.
+     */
     override fun clear() {
         head = null
         tail = null
