@@ -303,7 +303,6 @@ internal class SinglyLinkedListTest {
     //endregion
 
     //region removeAtIndex
-
     @Test
     fun `given list and node value, when removeAtIndex is called with index -1, exception is thrown`() {
         // GIVEN
