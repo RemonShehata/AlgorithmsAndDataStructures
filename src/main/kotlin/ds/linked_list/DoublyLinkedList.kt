@@ -179,6 +179,45 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     }
 
     /**
+     * removes the first node that contains [value].
+     * @param [value] the value to be removed.
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
+    override fun remove(value: T): Boolean {
+        if (count == 0) return false
+        else if (value == head!!.value) {
+            removeHead()
+            return true
+        } else if (value == tail!!.value){
+            removeTail()
+            return true
+        }
+
+        var current = head
+        while (current!!.next != null) {
+            if (current.next!!.value == value) {
+                current.next = current.next!!.next
+                count--
+                return true
+            }
+            current = current.next
+        }
+        return false
+    }
+
+    /**
+     * removes the first node that contains value equal to [node].
+     * @param [node] the node to be removed.
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
+    override fun remove(node: DoublyLinkedListNode<T>): Boolean {
+        return remove(node.value)
+    }
+
+
+    /**
      * check the [IDoublyLinkedList] contains a specific value.
      * @return true if the value exist.
      * @return false if the value doesn't exist.

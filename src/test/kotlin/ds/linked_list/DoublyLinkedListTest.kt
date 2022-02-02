@@ -425,6 +425,140 @@ internal class DoublyLinkedListTest {
     }
     //endregion
 
+    //region remove tests
+    @Test
+    fun `given empty list, when remove is called with any value, return false`() {
+        // GIVEN
+        val emptyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyLinkedList.remove(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given one item list, when remove is called with existing value, return true and update the list`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemDoublyLinkedList.remove(1)
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertNull(oneItemDoublyLinkedList.head)
+        assertNull(oneItemDoublyLinkedList.tail)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+
+    @Test
+    fun `given one item list, when remove is called with non-existing value, return false and don't update the list`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemDoublyLinkedList.remove(5)
+
+        // THEN
+        val expectedCount = 1
+        assertFalse(result)
+        assertNotNull(oneItemDoublyLinkedList.head)
+        assertNotNull(oneItemDoublyLinkedList.tail)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+
+
+    @Test
+    fun `given multiple node-list, when remove is called with existing value, return true and update the list`() {
+        // GIVEN
+        val multiItemDoublyLinkedList = DoublyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemDoublyLinkedList.remove(2)
+
+        // THEN
+        val expectedHeadNextValue = 3
+        val expectedCount = 2
+        assertTrue(result)
+        assertNotNull(multiItemDoublyLinkedList.head)
+        assertEquals(expectedCount, multiItemDoublyLinkedList.count)
+        assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.head!!.next!!.value)
+        assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.tail!!.value)
+    }
+
+    @Test
+    fun `given multiple node-list, when remove is called with existing value equal to head, return true and update the list`() {
+        // GIVEN
+        val multiItemDoublyLinkedList = DoublyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemDoublyLinkedList.remove(1)
+
+        // THEN
+        val expectedHeadNextValue = 3
+        val expectedHeadValue = 2
+        val expectedCount = 2
+        assertTrue(result)
+        assertNotNull(multiItemDoublyLinkedList.head)
+        assertNotNull(multiItemDoublyLinkedList.tail)
+        assertEquals(expectedCount, multiItemDoublyLinkedList.count)
+        assertEquals(expectedHeadValue, multiItemDoublyLinkedList.head!!.value)
+        assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.head!!.next!!.value)
+        assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.tail!!.value)
+    }
+
+    @Test
+    fun `given multiple node-list, when remove is called with existing value equal to tail, return true and update the list`() {
+        // GIVEN
+        val multiItemDoublyLinkedList = DoublyLinkedList<Int>().apply {
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemDoublyLinkedList.remove(3)
+
+        // THEN
+        val expectedHeadNextValue = 2
+        val expectedTailValue = 2
+        val expectedCount = 2
+        assertTrue(result)
+        assertNotNull(multiItemDoublyLinkedList.head)
+        assertNotNull(multiItemDoublyLinkedList.tail)
+        assertEquals(expectedCount, multiItemDoublyLinkedList.count)
+        assertEquals(expectedTailValue, multiItemDoublyLinkedList.tail!!.value)
+        assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.head!!.next!!.value)
+    }
+
+    @Test
+    fun `given multiple node-list, when remove is called with non-existing value, return false and don't update the list`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val result = oneItemDoublyLinkedList.remove(5)
+
+        // THEN
+        val expectedCount = 1
+        assertFalse(result)
+        assertNotNull(oneItemDoublyLinkedList.head)
+        assertNotNull(oneItemDoublyLinkedList.tail)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+    //endregion
+
     //region contains tests
     @Test
     fun `given empty list, when contains is called with any value, then returns false`() {

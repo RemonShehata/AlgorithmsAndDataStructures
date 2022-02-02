@@ -299,7 +299,6 @@ internal class SinglyLinkedListTest {
         assertNotNull(oneItemSinglyLinkedList.head)
         assertEquals(expectedCount, oneItemSinglyLinkedList.count)
     }
-
     //endregion
 
     //region removeAtIndex

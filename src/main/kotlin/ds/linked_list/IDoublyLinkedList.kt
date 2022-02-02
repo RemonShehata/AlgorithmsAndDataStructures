@@ -1,6 +1,5 @@
 package ds.linked_list
 
-//todo: implement remove(value)
 interface IDoublyLinkedList<T> : Iterator<T> {
 
     /**
@@ -58,6 +57,22 @@ interface IDoublyLinkedList<T> : Iterator<T> {
      * note that we are a zero index based list.
      */
     fun removeAtIndex(index: Int): Boolean
+
+    /**
+     * removes the first node that contains [value].
+     * @param [value] the value to be removed.
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
+    fun remove(value: T): Boolean
+
+    /**
+     * removes the first node that contains value equal to [node].
+     * @param [node] the node to be removed.
+     * @return true if the value was removed.
+     * @return false if the value did not exist.
+     */
+    fun remove(node: DoublyLinkedListNode<T>): Boolean
 
     /**
      * check the [IDoublyLinkedList] contains a specific value.
