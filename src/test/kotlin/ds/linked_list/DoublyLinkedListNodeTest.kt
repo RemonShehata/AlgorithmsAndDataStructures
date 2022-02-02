@@ -424,4 +424,82 @@ internal class DoublyLinkedListTest {
         assertNull(oneItemDoublyLinkedList.tail)
     }
     //endregion
+
+    //region contains tests
+    @Test
+    fun `given empty list, when contains is called with any value, then returns false`() {
+        // GIVEN
+        val emptyDoublyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        val result = emptyDoublyLinkedList.contains(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with value of head, then returns true`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.contains(3)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with value of tail, then returns true`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.contains(1)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with value in the middle, then returns true`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.contains(2)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given a list with many nodes, when contains is called with non-exist value, then returns false`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val result = doublyLinkedList.contains(5)
+
+        // THEN
+        assertFalse(result)
+    }
+    //endregion
 }
