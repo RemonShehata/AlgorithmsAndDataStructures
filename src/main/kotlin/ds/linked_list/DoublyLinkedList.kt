@@ -72,9 +72,18 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
             return
         }
 
-        tail!!.next = node
-        node.previous = tail
-        tail = node
+        var counter = 0
+        var current = head
+        while (counter != index - 1) {
+            current = current!!.next
+            counter++
+        }
+
+        node.next = current!!.next
+        node.previous = current
+        current.next!!.previous = node
+        current.next = node
+
         count++
     }
 

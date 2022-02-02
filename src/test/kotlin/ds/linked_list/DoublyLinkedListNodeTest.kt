@@ -2,6 +2,7 @@ package ds.linked_list
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 internal class DoublyLinkedListNodeTest {
 
@@ -102,6 +103,142 @@ internal class DoublyLinkedListNodeTest {
         assertEquals(expectedCount, doublyLinkedList.count)
         assertEquals(valueToInsert, doublyLinkedList.tail!!.value)
         assertEquals(1, doublyLinkedList.head!!.value)
+    }
+    //endregion
+
+    //region addAtIndex tests
+    @Test
+    fun `given list and node, when addAtIndex is called with index -1, exception is thrown`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>()
+        val nodeValue = 5
+
+        // WHEN
+        val index = -1
+
+        // THEN
+        assertThrows<IllegalArgumentException> {
+            doublyLinkedList.addAtIndex(
+                index,
+                nodeValue
+            )
+        }
+    }
+
+    @Test
+    fun `given list and node, when addAtIndex is called with index greater than count, exception is thrown`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>()
+        val nodeValue = 5
+
+        // WHEN
+        val index = 2
+
+        // THEN
+        assertThrows<IllegalArgumentException> {
+            doublyLinkedList.addAtIndex(
+                index,
+                nodeValue
+            )
+        }
+    }
+
+    @Test
+    fun `given list with one node, when addAtIndex is called with index 1, the value is added after head`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+        val nodeValue = 5
+        val expectedCount = 2
+
+        // WHEN
+        val index = 1
+        oneItemDoublyLinkedList.addAtIndex(index, nodeValue)
+
+        // THEN
+        assertEquals(nodeValue, oneItemDoublyLinkedList.head!!.next!!.value)
+        assertEquals(nodeValue, oneItemDoublyLinkedList.tail!!.value)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+
+    @Test
+    fun `given list with one node, when addAtIndex is called with index 0, the value is added at head`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>()
+        val nodeValue = 5
+        val expectedCount = 1
+
+        // WHEN
+        val index = 0
+        oneItemDoublyLinkedList.addAtIndex(index, nodeValue)
+
+        // THEN
+        assertEquals(nodeValue, oneItemDoublyLinkedList.head!!.value)
+        assertEquals(nodeValue, oneItemDoublyLinkedList.tail!!.value)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+
+    @Test
+    fun `given list, when addAtIndex is called with index equal count, the value is added at tail`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+        }
+
+        val nodeValue = 5
+        val expectedCount = 3
+
+        // WHEN
+        val index = 2
+        doublyLinkedList.addAtIndex(index, nodeValue)
+
+        // THEN
+        assertEquals(nodeValue, doublyLinkedList.tail!!.value)
+        assertEquals(expectedCount, doublyLinkedList.count)
+    }
+
+    @Test
+    fun `given list, when addAtIndex is called with index equal count -1, the value is added before tail`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+        }
+
+        val nodeValue = 5
+        val expectedCount = 3
+
+        // WHEN
+        val index = 1
+        doublyLinkedList.addAtIndex(index, nodeValue)
+
+        // THEN
+        assertEquals(nodeValue, doublyLinkedList.tail!!.previous!!.value)
+        assertEquals(expectedCount, doublyLinkedList.count)
+    }
+
+    @Test
+    fun `given list with multiple items, when addAtIndex is called with index in the middle, the value is added in the correct index`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+            it.addHead(4)
+            it.addHead(5)
+        }
+
+        val nodeValue = 7
+        val expectedCount = 6
+
+        // WHEN
+        val index = 2
+        doublyLinkedList.addAtIndex(index, nodeValue)
+
+        // THEN
+        assertEquals(nodeValue, doublyLinkedList.head!!.next!!.next!!.value)
+        assertEquals(nodeValue, doublyLinkedList.tail!!.previous!!.previous!!.previous!!.value)
+        assertEquals(expectedCount, doublyLinkedList.count)
     }
     //endregion
 }
