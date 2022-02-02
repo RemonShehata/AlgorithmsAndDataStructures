@@ -7,6 +7,7 @@ class DoublyLinkedListNode<T>(var value: T) {
     var next: DoublyLinkedListNode<T>? = null
 }
 
+// TODO: optimize contains to work like binary search.
 class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     var tail: DoublyLinkedListNode<T>? = null
         private set
@@ -198,6 +199,7 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         var current = head
         while (current!!.next != null) {
             if (current.next!!.value == value) {
+                //tail not updated?
                 current.next = current.next!!.next
                 count--
                 return true
