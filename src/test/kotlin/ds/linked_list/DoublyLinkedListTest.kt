@@ -703,4 +703,25 @@ internal class DoublyLinkedListTest {
         assertNull(doublyLinkedList.head)
     }
     //endregion
+
+    //region combine indexOf and addAtIndex tests
+    @Test
+    fun `given a list, when addAtIndex is called with value, then indexOf return the same index to that value`() {
+        // GIVEN
+        val doublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val addedValue = 5
+        val indexOfAddedValue = 1
+        doublyLinkedList.addAtIndex(indexOfAddedValue, addedValue)
+
+        // THEN
+        val expectedValue = doublyLinkedList.indexOf(addedValue)
+        assertEquals(expectedValue, indexOfAddedValue)
+    }
+    //endregion
 }
