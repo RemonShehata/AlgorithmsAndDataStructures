@@ -341,4 +341,87 @@ internal class DoublyLinkedListNodeTest {
         assertEquals(expectedHeadNodeValue, multiItemDoublyLinkedList.tail!!.value)
     }
     //endregion
+
+    //region removeAtIndex
+    @Test
+    fun `given list and node value, when removeAtIndex is called with index -1, exception is thrown`() {
+        // GIVEN
+        val emptyDoublyLinkedList = DoublyLinkedList<Int>()
+
+        // WHEN
+        val index = -1
+
+        // THEN
+        assertThrows<IllegalArgumentException> { emptyDoublyLinkedList.removeAtIndex(index) }
+    }
+
+    @Test
+    fun `given list and node, when removeAtIndex is called with index greater than count, exception is thrown`() {
+        // GIVEN
+        val emptyDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val index = 2
+
+        // THEN
+        assertThrows<IllegalArgumentException> { emptyDoublyLinkedList.removeAtIndex(index) }
+    }
+
+    @Test
+    fun `given a multiple node-list, when removeAtIndex is called with index 1, the value after head is removed`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val index = 1
+        oneItemDoublyLinkedList.removeAtIndex(index)
+
+        // THEN
+        val expectedCount = 2
+        val expectedValueAfterHead = 1
+        assertEquals(expectedValueAfterHead, oneItemDoublyLinkedList.head!!.next!!.value)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+
+    @Test
+    fun `given a multiple node-list, when removeAtIndex is called with index equal count - 1, the value at tail is removed`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also {
+            it.addHead(1)
+            it.addHead(2)
+            it.addHead(3)
+        }
+
+        // WHEN
+        val index = 2
+        oneItemDoublyLinkedList.removeAtIndex(index)
+
+        // THEN
+        val expectedCount = 2
+        val expectedValueForTail = 2
+        assertEquals(expectedValueForTail, oneItemDoublyLinkedList.tail!!.value)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+    }
+
+    @Test
+    fun `given list with one node, when removeAtIndex is called with index 0, head and tail are removed`() {
+        // GIVEN
+        val oneItemDoublyLinkedList = DoublyLinkedList<Int>().also { it.addHead(1) }
+
+        // WHEN
+        val index = 0
+        val result = oneItemDoublyLinkedList.removeAtIndex(index)
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertEquals(expectedCount, oneItemDoublyLinkedList.count)
+        assertNull(oneItemDoublyLinkedList.head)
+        assertNull(oneItemDoublyLinkedList.tail)
+    }
+    //endregion
 }

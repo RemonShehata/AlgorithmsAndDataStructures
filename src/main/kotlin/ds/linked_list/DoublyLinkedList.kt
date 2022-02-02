@@ -120,9 +120,8 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
             throw IllegalArgumentException("index must be between 0 and count")
 
         return when (index) {
-            0 -> false
             1 -> removeHead()
-            count -> removeTail()
+            count - 1 -> removeTail()
             else -> {
                 var current = head
                 var counter = 0
