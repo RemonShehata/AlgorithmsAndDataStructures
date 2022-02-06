@@ -34,7 +34,7 @@ class Dequeue<E> : IDequeue<E> {
      * * @return  The object at the beginning of this dequeue.
      * @throws  IllegalStateException  if this queue is empty.
      */
-    override fun dequeueHead(): E? {
+    override fun dequeueHead(): E {
         val head = store.head ?: throw IllegalStateException("Dequeue is empty")
         store.removeHead()
         return head.value
