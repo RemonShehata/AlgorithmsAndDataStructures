@@ -1,13 +1,22 @@
 package ds.queue
 
+import ds.linked_list.DoublyLinkedList
+
 class Dequeue<E> : IDequeue<E> {
+
+    private val store = DoublyLinkedList<E>()
+
+    var count: Int = store.count
+        private set
+        get() = store.count
+
 
     /**
      * adds an item to the beginning of this dequeue.
      * @param [item] the element to be added into this dequeue.
      */
     override fun enqueueHead(item: E) {
-        TODO("Not yet implemented")
+        store.addHead(item)
     }
 
     /**
@@ -15,7 +24,7 @@ class Dequeue<E> : IDequeue<E> {
      * @param [item] the element to be added into this dequeue.
      */
     override fun enqueueTail(item: E) {
-        TODO("Not yet implemented")
+        store.addTail(item)
     }
 
     /**
@@ -25,8 +34,10 @@ class Dequeue<E> : IDequeue<E> {
      * * @return  The object at the beginning of this dequeue.
      * @throws  IllegalStateException  if this queue is empty.
      */
-    override fun dequeueHead(): E {
-        TODO("Not yet implemented")
+    override fun dequeueHead(): E? {
+        val head = store.head ?: throw IllegalStateException("Dequeue is empty")
+        store.removeHead()
+        return head.value
     }
 
     /**
@@ -37,7 +48,9 @@ class Dequeue<E> : IDequeue<E> {
      * @throws  IllegalStateException  if this queue is empty.
      */
     override fun dequeueTail(): E {
-        TODO("Not yet implemented")
+        val tail = store.tail ?: throw IllegalStateException("Dequeue is empty")
+        store.removeHead()
+        return tail.value
     }
 
     /**
@@ -48,7 +61,9 @@ class Dequeue<E> : IDequeue<E> {
      *  * @throws  IllegalStateException  if this queue is empty.
      */
     override fun peekHead(): E {
-        TODO("Not yet implemented")
+        store.head?.let {
+            return it.value
+        } ?: throw IllegalStateException("Dequeue is empty")
     }
 
     /**
@@ -59,7 +74,9 @@ class Dequeue<E> : IDequeue<E> {
      *  * @throws  IllegalStateException  if this queue is empty.
      */
     override fun peekTail(): E {
-        TODO("Not yet implemented")
+        store.tail?.let {
+            return it.value
+        } ?: throw IllegalStateException("Dequeue is empty")
     }
 
     /**
@@ -69,6 +86,6 @@ class Dequeue<E> : IDequeue<E> {
      * no items; <code>false</code> otherwise.
      */
     override fun isEmpty(): Boolean {
-        TODO("Not yet implemented")
+        return store.count == 0
     }
 }
