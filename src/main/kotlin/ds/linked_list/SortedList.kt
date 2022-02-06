@@ -137,8 +137,8 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
         var current = head
         while (current!!.next != null) {
             if (current.next!!.compareTo(node) == 0) {
-                current.next = current.next!!.next
                 current.next!!.next!!.previous = current
+                current.next = current.next!!.next
                 count--
                 return true
             }
