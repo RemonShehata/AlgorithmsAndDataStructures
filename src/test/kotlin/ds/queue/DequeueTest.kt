@@ -229,4 +229,33 @@ internal class DequeueTest {
         assertEquals(expectedHeadValue, result)
     }
     //endregion
+
+    //region isEmpty
+    @Test
+    fun `given empty dequeue, when isEmpty is called, it returns true`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+
+        // WHEN
+        val result = dequeue.isEmpty()
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given non-empty dequeue, when isEmpty is called, it returns false`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        dequeue.enqueueHead(1)
+
+        // WHEN
+        val result = dequeue.isEmpty()
+
+        // THEN
+        assertFalse(result)
+    }
+    //endregion
 }
