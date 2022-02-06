@@ -5,8 +5,7 @@ interface IStack<E> {
     /**
      * Pushes an item onto the top of this stack.
      *
-     * @param   item   the item to be pushed onto this stack.
-     * @return  the <code>item</code> argument.
+     * @param item the item to be pushed onto this stack.
      */
     fun push(item: E)
 
@@ -15,7 +14,7 @@ interface IStack<E> {
      * object as the value of this function.
      *
      * @return  The object at the top of this stack.
-     * @throws  IllegalStateException  if this stack is empty.
+     * @throws  IllegalStateException if this stack is empty.
      */
     fun pop(): E
 

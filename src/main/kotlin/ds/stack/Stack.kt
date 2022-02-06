@@ -8,7 +8,6 @@ class Stack<E> : IStack<E> {
      * Pushes an item onto the top of this stack.
      *
      * @param   item   the item to be pushed onto this stack.
-     * @return  the <code>item</code> argument.
      */
     override fun push(item: E) {
         TODO("Not yet implemented")
