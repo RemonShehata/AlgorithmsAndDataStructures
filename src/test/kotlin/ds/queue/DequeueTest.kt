@@ -47,4 +47,37 @@ internal class DequeueTest {
         assertEquals(expectedCount, dequeue.count)
     }
     //endregion
+
+    //region enqueueTail
+    @Test
+    fun `given empty dequeue, when enqueueTail is called once, count is updated`() {
+
+        // GIVEN
+        val valueToInsert = 5
+        val dequeue = Dequeue<Int>()
+
+        // WHEN
+        dequeue.enqueueTail(valueToInsert)
+
+        // THEN
+        val expectedCount = 1
+        assertEquals(expectedCount, dequeue.count)
+    }
+
+    @Test
+    fun `given dequeue with one item, when enqueueTail is called once, count is updated`() {
+
+        // GIVEN
+        val valueToInsert = 5
+        val dequeue = Dequeue<Int>()
+        dequeue.enqueueHead(1)
+
+        // WHEN
+        dequeue.enqueueTail(valueToInsert)
+
+        // THEN
+        val expectedCount = 2
+        assertEquals(expectedCount, dequeue.count)
+    }
+    //endregion
 }
