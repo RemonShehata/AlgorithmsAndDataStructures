@@ -163,5 +163,23 @@ internal class DequeueTest {
         assertEquals(expectedCount, dequeue.count)
         assertEquals(expectedHeadValue, result)
     }
+
+    @Test
+    fun `given a multi item-dequeue, when peekHead is called, the head value is returned and count is the same`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        dequeue.enqueueHead(10)
+        dequeue.enqueueHead(20)
+
+        // WHEN
+        val result = dequeue.peekHead()
+
+        // THEN
+        val expectedCount = 2
+        val expectedHeadValue = 20
+        assertEquals(expectedCount, dequeue.count)
+        assertEquals(expectedHeadValue, result)
+    }
     //endregion
 }
