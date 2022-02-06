@@ -136,7 +136,7 @@ internal class DequeueTest {
     }
     //endregion
 
-    //region dequeueTail
+    //region peekHead
     @Test
     fun `given empty dequeue, when peekHead is called, exception is thrown`() {
 
