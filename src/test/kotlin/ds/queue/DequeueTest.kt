@@ -182,4 +182,51 @@ internal class DequeueTest {
         assertEquals(expectedHeadValue, result)
     }
     //endregion
+
+    //region peekTail
+    @Test
+    fun `given empty dequeue, when peekTail is called, exception is thrown`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+
+        // THEN
+        assertThrows<IllegalStateException> { dequeue.peekTail() }
+    }
+
+    @Test
+    fun `given dequeue with one item, when peekTail is called, the tail value is returned and count is the same`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        dequeue.enqueueHead(10)
+
+        // WHEN
+        val result = dequeue.peekTail()
+
+        // THEN
+        val expectedCount = 1
+        val expectedHeadValue = 10
+        assertEquals(expectedCount, dequeue.count)
+        assertEquals(expectedHeadValue, result)
+    }
+
+    @Test
+    fun `given a multi item-dequeue, when peekTail is called, the tail value is returned and count is the same`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        dequeue.enqueueHead(10)
+        dequeue.enqueueHead(20)
+
+        // WHEN
+        val result = dequeue.peekHead()
+
+        // THEN
+        val expectedCount = 2
+        val expectedHeadValue = 20
+        assertEquals(expectedCount, dequeue.count)
+        assertEquals(expectedHeadValue, result)
+    }
+    //endregion
 }
