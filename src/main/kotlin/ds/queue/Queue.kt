@@ -1,13 +1,19 @@
 package ds.queue
 
-class Queue<E>: IQueue<E> {
+class Queue<E> : IQueue<E> {
+
+    private val store = Dequeue<E>()
+
+    var count: Int = store.count
+        private set
+        get() = store.count
 
     /**
      * adds an item to the end of this queue.
      * @param [element] the element to be added into this queue.
      */
     override fun enqueue(element: E) {
-        TODO("Not yet implemented")
+        store.enqueueTail(element)
     }
 
     /**
@@ -18,7 +24,7 @@ class Queue<E>: IQueue<E> {
      * @throws  IllegalStateException  if this queue is empty.
      */
     override fun dequeue(): E {
-        TODO("Not yet implemented")
+        return store.dequeueHead()
     }
 
     /**
@@ -29,7 +35,7 @@ class Queue<E>: IQueue<E> {
      * @throws  IllegalStateException  if this stack is empty.
      */
     override fun peek(): E {
-        TODO("Not yet implemented")
+        return store.peekHead()
     }
 
     /**
@@ -39,6 +45,6 @@ class Queue<E>: IQueue<E> {
      * no items; <code>false</code> otherwise.
      */
     override fun isEmpty(): Boolean {
-        TODO("Not yet implemented")
+        return count == 0
     }
 }
