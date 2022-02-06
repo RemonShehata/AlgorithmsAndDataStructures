@@ -108,4 +108,31 @@ internal class DequeueTest {
         assertEquals(expectedCount, dequeue.count)
     }
     //endregion
+
+    //region dequeueTail
+    @Test
+    fun `given empty dequeue, when dequeueTail is called, exception is thrown`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+
+        // THEN
+        assertThrows<IllegalStateException> { dequeue.dequeueTail()}
+    }
+
+    @Test
+    fun `given dequeue with one item, when dequeueTail is called once, count is updated`() {
+
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        dequeue.enqueueHead(1)
+
+        // WHEN
+        dequeue.dequeueTail()
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, dequeue.count)
+    }
+    //endregion
 }
