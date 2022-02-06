@@ -1,6 +1,9 @@
 package ds.stack
 
-class Stack<E>: IStack<E> {
+import ds.linked_list.DoublyLinkedList
+
+class Stack<E> : IStack<E> {
+
     /**
      * Pushes an item onto the top of this stack.
      *
