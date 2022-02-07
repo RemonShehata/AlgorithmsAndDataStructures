@@ -1,8 +1,14 @@
 package ds.stack
 
-import ds.linked_list.DoublyLinkedList
+import ds.queue.Dequeue
 
 class Stack<E> : IStack<E> {
+
+    private val store = Dequeue<E>()
+
+    var count: Int = store.count
+        private set
+        get() = store.count
 
     /**
      * Pushes an item onto the top of this stack.
@@ -10,7 +16,7 @@ class Stack<E> : IStack<E> {
      * @param   item   the item to be pushed onto this stack.
      */
     override fun push(item: E) {
-        TODO("Not yet implemented")
+        store.enqueueHead(item)
     }
 
     /**
@@ -21,7 +27,7 @@ class Stack<E> : IStack<E> {
      * @throws  IllegalStateException  if this stack is empty.
      */
     override fun pop(): E {
-        TODO("Not yet implemented")
+        return store.dequeueHead()
     }
 
     /**
@@ -32,7 +38,7 @@ class Stack<E> : IStack<E> {
      * @throws  IllegalStateException  if this stack is empty.
      */
     override fun peek(): E {
-        TODO("Not yet implemented")
+        return store.peekHead()
     }
 
     /**
@@ -42,7 +48,7 @@ class Stack<E> : IStack<E> {
      *          no items; <code>false</code> otherwise.
      */
     override fun isEmpty(): Boolean {
-        TODO("Not yet implemented")
+        return count == 0
     }
 
     /**
