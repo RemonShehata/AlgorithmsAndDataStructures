@@ -7,25 +7,60 @@ class BinarySearchTreeNode<T : Comparable<T>>(
     val data: T,
     var left: BinarySearchTreeNode<T>? = null,
     var right: BinarySearchTreeNode<T>? = null
-)
+) : Comparable<T> {
+    override fun compareTo(other: T): Int {
+        return this.data.compareTo(other)
+    }
+
+    fun compareTo(other: BinarySearchTreeNode<T>): Int {
+        return this.data.compareTo(other.data)
+    }
+}
 
 /**
  * binary tree where nodes with less value are stored on the left.
  * And, greater than or equal to values are stores on the right.
  */
 class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
+
+    var root: BinarySearchTreeNode<T>? = null
+        private set
+
+    var count: Int = 0
+        private set
+
+
     /**
      * add [data] to [IBinarySearchTree] in sort order.
      */
     override fun add(data: T) {
-        TODO("Not yet implemented")
+        val bstNode = BinarySearchTreeNode(data)
+        add(bstNode)
     }
 
     /**
      * add [bstNode] to [IBinarySearchTree] in sort order.
      */
     override fun add(bstNode: BinarySearchTreeNode<T>) {
-        TODO("Not yet implemented")
+        root?.let { addTo(it, bstNode) } ?: run { root = bstNode }
+        count++
+    }
+
+    // Recursive add algorithm
+    private fun addTo(rootNode: BinarySearchTreeNode<T>, nodeToAdd: BinarySearchTreeNode<T>) {
+        // Case 1: Value is less than the current node value
+        if (nodeToAdd.compareTo(rootNode) < 0) {
+            // if there is no left child make this the new left
+            // else add it to the left node
+            rootNode.left?.let { addTo(it, nodeToAdd) } ?: kotlin.run { rootNode.left = nodeToAdd }
+
+            // Case 2: Value is equal to or greater than the current value
+        } else {
+            // If there is no right, add it to the right
+            // else add it to the right node
+            rootNode.right?.let { addTo(it, nodeToAdd) }
+                ?: kotlin.run { rootNode.right = nodeToAdd }
+        }
     }
 
     /**
@@ -34,7 +69,8 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * And <code>false</code> if the [data] didn't exist.
      */
     override fun remove(data: T): Boolean {
-        TODO("Not yet implemented")
+        val bstNode = BinarySearchTreeNode(data)
+        return remove(bstNode)
     }
 
     /**
@@ -43,7 +79,34 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * And <code>false</code> if the [bstNode] value didn't exist.
      */
     override fun remove(bstNode: BinarySearchTreeNode<T>): Boolean {
-        TODO("Not yet implemented")
+
+        val nodeToRemove = search(bstNode) ?: return false
+
+        val parentOfNodeToRemove = findParent(nodeToRemove) //todo if null then I am removing root
+        val isRight = parentOfNodeToRemove!!.right == nodeToRemove
+        if (nodeToRemove.isLeaf()) {
+            if (isRight) parentOfNodeToRemove.right = null
+            else parentOfNodeToRemove.left = null
+        } else if (nodeToRemove.hasTwoChildren()) { // todo: right -> left is null. what to do?
+            val nodeToPromote = nodeToRemove.right!!.left
+            nodeToRemove.right!!.left = null
+            if (isRight) parentOfNodeToRemove.right = nodeToPromote
+            else parentOfNodeToRemove.left = nodeToPromote
+
+            nodeToPromote!!.right = nodeToRemove.right
+            nodeToPromote.left = nodeToRemove.left
+
+            nodeToRemove.right = null
+            nodeToRemove.left = null
+
+        } else if (nodeToRemove.hasOneChild()) {
+            val child = if (nodeToRemove.hasRightChild()) nodeToRemove.right
+            else nodeToRemove.left
+            if (isRight) parentOfNodeToRemove.right = child
+            else parentOfNodeToRemove.left = child
+        }
+        count--
+        return true
     }
 
     /**
@@ -51,15 +114,33 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * @return [BinarySearchTreeNode] if the node existed, And <code>null</code> otherwise.
      */
     override fun search(data: T): BinarySearchTreeNode<T>? {
-        TODO("Not yet implemented")
+        val bstNode = BinarySearchTreeNode(data)
+        return search(bstNode)
     }
 
     /**
-     * search the [IBinarySearchTree] for [bstNode].
+     * search the [IBinarySearchTree] for [childNode].
      * @return [BinarySearchTreeNode] if the node existed, And <code>null</code> otherwise.
      */
     override fun search(bstNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>? {
-        TODO("Not yet implemented")
+        return root?.let { search(it, bstNode) }
+    }
+
+    private fun search(
+        rootNode: BinarySearchTreeNode<T>,
+        searchedFor: BinarySearchTreeNode<T>
+    ): BinarySearchTreeNode<T>? {
+        return when {
+            searchedFor.compareTo(rootNode) == 0 -> rootNode
+//            rootNode.isLeaf() -> null
+            // searched for value is less than root, go left
+            searchedFor.compareTo(rootNode) < 0 -> {
+                rootNode.left?.let { search(it, searchedFor) }
+            }
+            else -> {
+                rootNode.right?.let { search(it, searchedFor) }
+            }
+        }
     }
 
     /**
@@ -67,15 +148,32 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      *  @return [BinarySearchTreeNode] if the node with that value has a parent, And <code>null</code> otherwise.
      */
     override fun findParent(data: T): BinarySearchTreeNode<T>? {
-        TODO("Not yet implemented")
+        val bstNode = BinarySearchTreeNode(data)
+        return findParent(data)
     }
 
     /**
-     * find parent for the first node with value equal to value of [bstNode].
+     * find parent for the first node with value equal to value of [childNode].
      *  @return [BinarySearchTreeNode] if the node with that value has a parent, And <code>null</code> otherwise.
      */
-    override fun findParent(bstNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>? {
-        TODO("Not yet implemented")
+    override fun findParent(childNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>? {
+        var parent: BinarySearchTreeNode<T>? = null
+        var current = root
+
+        while (current != null) {
+            val result = childNode.compareTo(current)
+            if (result < 0) {
+                parent = current
+                current = current.left
+            } else if (result > 0) {
+                parent = current
+                current = current.right
+            } else {
+                break
+            }
+        }
+
+        return parent
     }
 
     /**
@@ -85,7 +183,13 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * @param [action] the action to be performed on each node.
      */
     override fun preOrderTraversal(action: (t: T) -> Unit) {
-        TODO("Not yet implemented")
+        root?.let { preOrderTraversal(it, action) }
+    }
+
+    private fun preOrderTraversal(node: BinarySearchTreeNode<T>, action: (t: T) -> Unit) {
+        action(node.data)
+        node.left?.let { preOrderTraversal(it, action) }
+        node.right?.let { preOrderTraversal(it, action) }
     }
 
     /**
@@ -95,7 +199,13 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * @param [action] the action to be performed on each node.
      */
     override fun postOrderTraversal(action: (t: T) -> Unit) {
-        TODO("Not yet implemented")
+        root?.let { postOrderTraversal(it, action) }
+    }
+
+    private fun postOrderTraversal(node: BinarySearchTreeNode<T>, action: (t: T) -> Unit) {
+        node.left?.let { postOrderTraversal(it, action) }
+        node.right?.let { postOrderTraversal(it, action) }
+        action(node.data)
     }
 
     /**
@@ -105,14 +215,22 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * @param [action] the action to be performed on each node.
      */
     override fun inOrderTraversal(action: (t: T) -> Unit) {
-        TODO("Not yet implemented")
+        root?.let { inOrderTraversal(it, action) }
+    }
+
+    private fun inOrderTraversal(node: BinarySearchTreeNode<T>, action: (t: T) -> Unit) {
+        node.left?.let { inOrderTraversal(it, action) }
+        action(node.data)
+        node.right?.let { inOrderTraversal(it, action) }
+
     }
 
     /**
      * clear the tree, And reset everything.
      */
     override fun clear() {
-        TODO("Not yet implemented")
+        root = null
+        count = 0
     }
 }
 
