@@ -13,7 +13,7 @@ class BinarySearchTreeNode<T : Comparable<T>>(
  * binary tree where nodes with less value are stored on the left.
  * And, greater than or equal to values are stores on the right.
  */
-class BinarySearchTree<T> : IBinarySearchTree<T> {
+class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
     /**
      * add [data] to [IBinarySearchTree] in sort order.
      */
@@ -115,3 +115,9 @@ class BinarySearchTree<T> : IBinarySearchTree<T> {
         TODO("Not yet implemented")
     }
 }
+
+fun <T : Comparable<T>> BinarySearchTreeNode<T>.isLeaf() = this.left == null && this.right == null
+fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasRightChild() = this.right != null
+fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasLeftChild() = this.left != null
+fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasOneChild() = this.left != null || this.right != null
+fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasTwoChildren() = this.left != null && this.right != null
