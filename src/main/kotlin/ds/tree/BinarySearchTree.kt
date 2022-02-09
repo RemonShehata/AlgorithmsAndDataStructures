@@ -3,7 +3,7 @@ package ds.tree
 /**
  * a node that  contains a single data item and pointers to the left and right child.
  */
-class BinarySearchTreeNode<T : Comparable<T>>(
+data class BinarySearchTreeNode<T : Comparable<T>>(
     val data: T,
     var left: BinarySearchTreeNode<T>? = null,
     var right: BinarySearchTreeNode<T>? = null
