@@ -37,7 +37,7 @@ interface IBinarySearchTree<T : Comparable<T>> {
      * @return [BinarySearchTreeNode] if the node existed, And <code>null</code> otherwise.
      */
     fun search(bstNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>?
-    
+
     /**
      * traverse this [IBinarySearchTree] in the following order
      * current node -> left node -> right node

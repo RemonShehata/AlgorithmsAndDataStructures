@@ -434,4 +434,139 @@ internal class BinarySearchTreeTest {
     }
 
     //endregion
+
+    //region preorder traversal tests
+    @Test
+    fun `given empty tree, when pre order traversal is called, items are called in correct order`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        val result = mutableListOf<Int>()
+        bst.preOrderTraversal { result.add(it) }
+
+        // THEN
+        val expected = mutableListOf<Int>()
+        assertEquals(expected, result)
+    }
+
+    /**
+     *                  10
+     *                 / \
+     *                7   12
+     *              / \   / \
+     *             5   8 11 15
+     */
+    @Test
+    fun `given balanced tree, when pre order traversal is called, items are called in correct order`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+            bst.run {
+            add(10)
+            add(12)
+            add(11)
+            add(15)
+            add(7)
+            add(5)
+            add(8)
+        }
+        // WHEN
+        val result = mutableListOf<Int>()
+        bst.preOrderTraversal { result.add(it) }
+
+        // THEN
+        val expected = mutableListOf<Int>(10, 7, 5, 8, 12, 11, 15)
+        assertEquals(expected, result)
+    }
+    //endregion
+
+    //region postorder traversal tests
+    @Test
+    fun `given empty tree, when postOrderTraversal is called, items are called in correct order`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        val result = mutableListOf<Int>()
+        bst.preOrderTraversal { result.add(it) }
+
+        // THEN
+        val expected = mutableListOf<Int>()
+        assertEquals(expected, result)
+    }
+
+    /**
+     *                  10
+     *                 / \
+     *                7   12
+     *              / \   / \
+     *             5   8 11 15
+     */
+    @Test
+    fun `given balanced tree, when postOrderTraversal is called, items are called in correct order`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.run {
+            add(10)
+            add(12)
+            add(11)
+            add(15)
+            add(7)
+            add(5)
+            add(8)
+        }
+        // WHEN
+        val result = mutableListOf<Int>()
+        bst.postOrderTraversal { result.add(it) }
+
+        // THEN
+        val expected = mutableListOf<Int>(5, 8, 7, 11, 15, 12, 10)
+        assertEquals(expected, result)
+    }
+    //endregion
+
+    //region inorder traversal tests
+    @Test
+    fun `given empty tree, when inOrderTraversal is called, items are called in correct order`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        val result = mutableListOf<Int>()
+        bst.inOrderTraversal { result.add(it) }
+
+        // THEN
+        val expected = mutableListOf<Int>()
+        assertEquals(expected, result)
+    }
+
+    /**
+     *                  10
+     *                 / \
+     *                7   12
+     *              / \   / \
+     *             5   8 11 15
+     */
+    @Test
+    fun `given balanced tree, when inOrderTraversal is called, items are called in correct order`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.run {
+            add(10)
+            add(12)
+            add(11)
+            add(15)
+            add(7)
+            add(5)
+            add(8)
+        }
+        // WHEN
+        val result = mutableListOf<Int>()
+        bst.inOrderTraversal { result.add(it) }
+
+        // THEN
+        val expected = mutableListOf<Int>(5, 7, 8, 10, 11, 12, 15)
+        assertEquals(expected, result)
+    }
+    //endregion
 }
