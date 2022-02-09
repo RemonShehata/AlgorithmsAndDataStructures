@@ -329,4 +329,109 @@ internal class BinarySearchTreeTest {
         assertNull(bst.root!!.left)
     }
     //endregion
+
+    //region search tests
+    @Test
+    fun `given empty tree, when search is called with any value, return null`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        val result = bst.search(5)
+
+        // THEN
+        assertNull(result)
+    }
+
+    @Test
+    fun `given tree, when search is called with a non-existent value, return null`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(2)
+
+        // WHEN
+        val result = bst.search(5)
+
+        // THEN
+        assertNull(result)
+    }
+
+    @Test
+    fun `given tree, when search is called with root value, return root`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        val addedNode = BinarySearchTreeNode(5)
+        bst.add(addedNode)
+
+        // WHEN
+        val result = bst.search(addedNode)
+
+        // THEN
+        assertEquals(addedNode, result)
+    }
+
+    @Test
+    fun `given tree, when search is called with right leaf value, return correct node`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(4)
+        bst.add(5)
+
+        // WHEN
+        val searchedForNode = BinarySearchTreeNode(5)
+        val result = bst.search(5)
+
+        // THEN
+        assertEquals(searchedForNode, result)
+    }
+
+    @Test
+    fun `given tree, when search is called with left leaf value, return correct node`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(4)
+        bst.add(2)
+
+        // WHEN
+        val searchedForNode = BinarySearchTreeNode(4)
+        val result = bst.search(4)
+
+        // THEN
+        assertEquals(searchedForNode, result)
+    }
+
+
+    /**
+     *                  3
+     *                 / \
+     *               null 7
+     *                   / \
+     *                 5     10
+     *               / \     / \
+     *            null null  8 null
+     */
+    @Test
+    fun `given tree, when search is called with middle node value, return correct node`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(7)
+        bst.add(5)
+        bst.add(10)
+        bst.add(8)
+
+        // WHEN
+        val result = bst.search(7)
+
+        // THEN
+        val expectedNode = BinarySearchTreeNode(7).also { it ->
+            it.right = BinarySearchTreeNode(10).also { it.left = BinarySearchTreeNode(8) }
+            it.left = BinarySearchTreeNode(5)
+        }
+        assertEquals(expectedNode, result)
+    }
+
+    //endregion
 }
