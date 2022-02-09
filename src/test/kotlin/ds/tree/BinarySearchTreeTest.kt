@@ -461,7 +461,7 @@ internal class BinarySearchTreeTest {
     fun `given balanced tree, when pre order traversal is called, items are called in correct order`() {
         // GIVEN
         val bst = BinarySearchTree<Int>()
-            bst.run {
+        bst.run {
             add(10)
             add(12)
             add(11)
@@ -567,6 +567,43 @@ internal class BinarySearchTreeTest {
         // THEN
         val expected = mutableListOf<Int>(5, 7, 8, 10, 11, 12, 15)
         assertEquals(expected, result)
+    }
+    //endregion
+
+    //region clear tests
+    @Test
+    fun `given empty tree, when clear is called, there is no effect`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        bst.clear()
+
+        // THEN
+        assertNull(bst.root)
+        assertEquals(0, bst.count)
+    }
+
+    @Test
+    fun `given tree, when clear is called, there is no effect`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.run {
+            add(10)
+            add(12)
+            add(11)
+            add(15)
+            add(7)
+            add(5)
+            add(8)
+        }
+
+        // WHEN
+        bst.clear()
+
+        // THEN
+        assertNull(bst.root)
+        assertEquals(0, bst.count)
     }
     //endregion
 }
