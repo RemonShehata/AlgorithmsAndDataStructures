@@ -1,7 +1,7 @@
 package ds.tree
 
 /**
- * a node that contains a single data item and pointers to the left and right child.
+ * a node that  contains a single data item and pointers to the left and right child.
  */
 class BinarySearchTreeNode<T : Comparable<T>>(
     val data: T,
@@ -81,6 +81,11 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
     override fun remove(bstNode: BinarySearchTreeNode<T>): Boolean {
 
         val nodeToRemove = search(bstNode) ?: return false
+        // if is root, clear everything
+        if (root?.let { bstNode.compareTo(it) } == 0) {
+            clear()
+            return true
+        }
 
         val parentOfNodeToRemove = findParent(nodeToRemove) //todo if null then I am removing root
         val isRight = parentOfNodeToRemove!!.right == nodeToRemove
@@ -119,7 +124,7 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
     }
 
     /**
-     * search the [IBinarySearchTree] for [childNode].
+     * search the [IBinarySearchTree] for [bstNode].
      * @return [BinarySearchTreeNode] if the node existed, And <code>null</code> otherwise.
      */
     override fun search(bstNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>? {
@@ -239,3 +244,6 @@ fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasRightChild() = this.right != 
 fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasLeftChild() = this.left != null
 fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasOneChild() = this.left != null || this.right != null
 fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasTwoChildren() = this.left != null && this.right != null
+
+infix fun <T : Comparable<T>> BinarySearchTreeNode<T>.isRight(childNode: BinarySearchTreeNode<T>) =
+    this.right!!.compareTo(childNode) == 0

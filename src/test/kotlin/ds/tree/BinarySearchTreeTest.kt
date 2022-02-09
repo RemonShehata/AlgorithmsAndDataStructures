@@ -99,5 +99,234 @@ internal class BinarySearchTreeTest {
         assertNotNull(bst.root)
         assertEquals(addedValue, bst.root!!.left!!.data)
     }
+
+    /**
+     *     root
+     *       3
+     *      /  \ right
+     *   null   4
+     *           \ right
+     *            5
+     */
+    @Test
+    fun `given empty tree, when add is called multiple times 3,4,5 , then the values are added in sort order and count is updated`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        bst.add(3)
+        bst.add(4)
+        bst.add(5)
+
+        // THEN
+        val expectedCount = 3
+        val expectedRoot = 3
+        val expectedRight = 4
+        val expectedRightRight = 5
+        assertEquals(expectedCount, bst.count)
+        assertNotNull(bst.root)
+        assertEquals(expectedRoot, bst.root!!.data)
+        assertEquals(expectedRight, bst.root!!.right!!.data)
+        assertEquals(expectedRightRight, bst.root!!.right!!.right!!.data)
+        assertNull(bst.root!!.left)
+    }
+
+    /**
+     *     root
+     *        5
+     *      /  \ right
+     *     3   null
+     *    /
+     *   2
+     */
+    @Test
+    fun `given empty tree, when add is called multiple times 5,3,2 , then the values are added in sort order and count is updated`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        bst.add(5)
+        bst.add(3)
+        bst.add(2)
+
+        // THEN
+        val expectedCount = 3
+        val expectedRoot = 5
+        val expectedLeft = 3
+        val expectedLeftLeft = 2
+        assertEquals(expectedCount, bst.count)
+        assertNotNull(bst.root)
+        assertEquals(expectedRoot, bst.root!!.data)
+        assertEquals(expectedLeft, bst.root!!.left!!.data)
+        assertEquals(expectedLeftLeft, bst.root!!.left!!.left!!.data)
+        assertNull(bst.root!!.right)
+    }
+    //endregion
+
+    //region remove tests
+    @Test
+    fun `given empty tree, when remove is called with any value, return false`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+
+        // WHEN
+        val result = bst.remove(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a tree, when remove is called a non existent-value, return false`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(2)
+
+        // WHEN
+        val result = bst.remove(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a tree with one value, when remove is called value in the tree, return true and update count and root`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(2)
+
+        // WHEN
+        val result = bst.remove(2)
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertNull(bst.root)
+    }
+
+    /**
+     *          3              3
+     *         / \            / \
+     *       null 4  ---->  null 4
+     *             \              \
+     *              5             null
+     */
+    @Test
+    fun `given a tree, when remove is called with a leaf right node, return true and update count`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(4)
+        bst.add(5)
+
+        // WHEN
+        val result = bst.remove(5)
+
+        // THEN
+        val expectedCount = 2
+        val expectedRight = 4
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedRight, bst.root!!.right!!.data)
+        assertNotNull(bst.root)
+        assertNull(bst.root!!.right!!.right)
+        assertNull(bst.root!!.left)
+    }
+
+    /**
+     *          5               5
+     *         / \             / \
+     *        3  null ---->   3  null
+     *       /               /
+     *      2              null
+     */
+    @Test
+    fun `given a tree, when remove is called with a leaf left node, return true and update count`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(5)
+        bst.add(3)
+        bst.add(2)
+
+        // WHEN
+        val result = bst.remove(2)
+
+        // THEN
+        val expectedCount = 2
+        val expectedLeft = 3
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedLeft, bst.root!!.left!!.data)
+        assertNotNull(bst.root)
+        assertNull(bst.root!!.left!!.left)
+        assertNull(bst.root!!.right)
+    }
+
+    /**
+     *          3                  3
+     *         / \                / \
+     *        2   4     ---->    2   5
+     *       /     \            /     \
+     *      null    5         null    null
+     */
+    @Test
+    fun `given a multi-values tree, when remove is called with value that has one child, return true and update count and root`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(4)
+        bst.add(2)
+        bst.add(5)
+
+        // WHEN
+        val result = bst.remove(4)
+
+        // THEN
+        val expectedCount = 3
+        val expectedRight = 5
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedRight, bst.root!!.right!!.data)
+        assertNotNull(bst.root)
+        assertNull(bst.root!!.right!!.right)
+    }
+
+    /**
+     *                  3                           3
+     *                 / \                        /  \
+     *               null 7                     null  8
+     *                   / \                         / \
+     *                 5     10                     5  10
+     *               / \     / \
+     *            null null  8 null
+     */
+    @Test
+    fun `given a multi-values tree, when remove is called with value that has two children, return true and update count and root`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(7)
+        bst.add(5)
+        bst.add(10)
+        bst.add(8)
+
+        // WHEN
+        val result = bst.remove(7)
+
+        // THEN
+        val expectedCount = 4
+        val expectedRight = 8
+        val expectedRightLeft = 5
+        val expectedRightRight = 10
+
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedRight, bst.root!!.right!!.data)
+        assertEquals(expectedRightRight, bst.root!!.right!!.right!!.data)
+        assertEquals(expectedRightLeft, bst.root!!.right!!.left!!.data)
+        assertNotNull(bst.root)
+        assertNull(bst.root!!.left)
+    }
     //endregion
 }
