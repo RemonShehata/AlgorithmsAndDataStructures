@@ -37,19 +37,7 @@ interface IBinarySearchTree<T : Comparable<T>> {
      * @return [BinarySearchTreeNode] if the node existed, And <code>null</code> otherwise.
      */
     fun search(bstNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>?
-
-    /**
-     * find parent for the first node with value [data].
-     *  @return [BinarySearchTreeNode] if the node with that value has a parent, And <code>null</code> otherwise.
-     */
-    fun findParent(data: T): BinarySearchTreeNode<T>?
-
-    /**
-     * find parent for the first node with value equal to value of [bstNode].
-     *  @return [BinarySearchTreeNode] if the node with that value has a parent, And <code>null</code> otherwise.
-     */
-    fun findParent(bstNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>?
-
+    
     /**
      * traverse this [IBinarySearchTree] in the following order
      * current node -> left node -> right node

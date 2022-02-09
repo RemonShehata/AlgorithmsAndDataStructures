@@ -152,7 +152,7 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * find parent for the first node with value [data].
      *  @return [BinarySearchTreeNode] if the node with that value has a parent, And <code>null</code> otherwise.
      */
-    override fun findParent(data: T): BinarySearchTreeNode<T>? {
+    private fun findParent(data: T): BinarySearchTreeNode<T>? {
         val bstNode = BinarySearchTreeNode(data)
         return findParent(data)
     }
@@ -161,7 +161,7 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * find parent for the first node with value equal to value of [childNode].
      *  @return [BinarySearchTreeNode] if the node with that value has a parent, And <code>null</code> otherwise.
      */
-    override fun findParent(childNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>? {
+    private fun findParent(childNode: BinarySearchTreeNode<T>): BinarySearchTreeNode<T>? {
         var parent: BinarySearchTreeNode<T>? = null
         var current = root
 
