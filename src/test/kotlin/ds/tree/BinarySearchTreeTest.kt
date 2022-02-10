@@ -206,6 +206,85 @@ internal class BinarySearchTreeTest {
     }
 
     /**
+     *          3
+     *         / \
+     *       null null
+     */
+    @Test
+    fun `given a tree with one node, when remove is called with a root node, return true and update count`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+
+        // WHEN
+        val result = bst.remove(3)
+
+        // THEN
+        val expectedCount = 0
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertNull(bst.root)
+    }
+
+    /**
+     *          3              4
+     *         / \            / \
+     *       null 4  ---->  null 5
+     *             \              \
+     *              5             null
+     */
+    @Test
+    fun `given a tree with root and values to the right, when remove is called with root node, return true and update count`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(3)
+        bst.add(4)
+        bst.add(5)
+
+        // WHEN
+        val result = bst.remove(3)
+
+        // THEN
+        val expectedCount = 2
+        val expectedRight = 5
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedRight, bst.root!!.right!!.data)
+        assertNotNull(bst.root)
+        assertNull(bst.root!!.right!!.right)
+        assertNull(bst.root!!.left)
+    }
+
+    /**
+     *          5               3
+     *         / \             / \
+     *        3  null ---->   2  null
+     *       /               /
+     *      2              null
+     */
+    @Test
+    fun `given a tree with root and values to the left, when remove is called with root node, return true and update count`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(5)
+        bst.add(3)
+        bst.add(2)
+
+        // WHEN
+        val result = bst.remove(5)
+
+        // THEN
+        val expectedCount = 2
+        val expectedLeft = 2
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedLeft, bst.root!!.left!!.data)
+        assertNotNull(bst.root)
+        assertNull(bst.root!!.left!!.left)
+        assertNull(bst.root!!.right)
+    }
+
+    /**
      *          3              3
      *         / \            / \
      *       null 4  ---->  null 4
