@@ -87,12 +87,14 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
             return true
         }
 
-        val parentOfNodeToRemove = findParent(nodeToRemove) //todo if null then I am removing root
+        val parentOfNodeToRemove = findParent(nodeToRemove) //if null then I am removing root
         val isRight = parentOfNodeToRemove!!.right == nodeToRemove
+//        if (parentOfNodeToRemove == null && nodeToRemove.isLeaf()) {
+//            root = null}
         if (nodeToRemove.isLeaf()) {
             if (isRight) parentOfNodeToRemove.right = null
             else parentOfNodeToRemove.left = null
-        } else if (nodeToRemove.hasTwoChildren()) { // todo: right -> left is null. what to do?
+        } else if (nodeToRemove.hasTwoChildren()) { //TODO: right -> left is null. what to do?
             val nodeToPromote = nodeToRemove.right!!.left
             nodeToRemove.right!!.left = null
             if (isRight) parentOfNodeToRemove.right = nodeToPromote
