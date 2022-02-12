@@ -42,8 +42,14 @@ class HashTableArray<K, V> : IHashTable<K, V> {
      */
     override fun remove(key: K): Boolean {
         val index = calculateHashCode(key)
-        entries[index] = null
-        count--
+       
+        entries[index]?.let {
+            entries[index] = null
+            count--
+            return true
+        }?: run {
+         return false
+        }
     }
 
     /**
