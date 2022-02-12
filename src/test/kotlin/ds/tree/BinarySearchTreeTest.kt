@@ -285,6 +285,38 @@ internal class BinarySearchTreeTest {
     }
 
     /**
+     *              5               6
+     *            /  \            /  \
+     *           3    7  ---->   3    7
+     *               / \             /
+     *              6  null         null
+     */
+    @Test
+    fun `given a multi-values tree, when remove is called with root node that has two children, return true and update count and root`() {
+        // GIVEN
+        val bst = BinarySearchTree<Int>()
+        bst.add(5)
+        bst.add(3)
+        bst.add(7)
+        bst.add(6)
+
+        // WHEN
+        val result = bst.remove(5)
+
+        // THEN
+        val expectedCount = 3
+        val expectedRight = 7
+        val expectedLeft = 3
+
+        assertTrue(result)
+        assertEquals(expectedCount, bst.count)
+        assertEquals(expectedLeft, bst.root!!.left!!.data)
+        assertEquals(expectedRight, bst.root!!.right!!.data)
+        assertNull(bst.root!!.right!!.left)
+        assertNotNull(bst.root)
+    }
+
+    /**
      *          3              3
      *         / \            / \
      *       null 4  ---->  null 4
