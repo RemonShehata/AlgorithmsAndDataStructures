@@ -1,26 +1,39 @@
 package ds.hashtable
 
 class HashTableArray<K, V> : IHashTable<K, V> {
-    
+
+    private val arraySize = 16
+    private val entries: Array<HashTableEntry<K, V>?> = arrayOfNulls(arraySize)
+    var count = 0
+        private set
+
+    private fun calculateHashCode(key: K): Int {
+        return key.hashCode() % arraySize
+    }
+
     /**
      * Maps the specified key to the specified value in this hashtable.
      */
     override fun put(key: K, value: V) {
-        TODO("Not yet implemented")
+        val entry = HashTableEntry(key, value)
+        put(entry)
     }
 
     /**
      * adds the [entry] to this hashtable.
      */
     override fun put(entry: HashTableEntry<K, V>) {
-        TODO("Not yet implemented")
+        val index = calculateHashCode(entry.key)
+        entries[index] = entry
+        count++
     }
 
     /**
      * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
      */
     override fun getValue(key: K): V? {
-        TODO("Not yet implemented")
+        val index = calculateHashCode(key)
+        return entries[index]?.value
     }
 
     /**
@@ -28,42 +41,56 @@ class HashTableArray<K, V> : IHashTable<K, V> {
      * @return <code>true</code> if successful or <code>false</code> if the key didn't exist.
      */
     override fun remove(key: K): Boolean {
-        TODO("Not yet implemented")
+        val index = calculateHashCode(key)
+        entries[index] = null
+        count--
     }
 
     /**
      * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
      */
     override fun get(key: K): V? {
-        TODO("Not yet implemented")
+        return getValue(key)
     }
 
     /**
      * Maps the specified key to the specified value in this hashtable.
      */
     override fun set(key: K, value: V) {
-        TODO("Not yet implemented")
+        put(key, value)
     }
 
     /**
      * Returns true if this hashtable maps one or more keys to this value.
      */
     override fun contains(entry: HashTableEntry<K, V>): Boolean {
-        TODO("Not yet implemented")
+        return entries.contains(entry)
     }
 
     /**
      * Tests if the specified object is a key in this hashtable.
      */
     override fun containsKey(key: K): Boolean {
-        TODO("Not yet implemented")
+        entries.forEach { entry ->
+            if (entry != null) {
+                if (entry.key == key) return true
+            }
+        }
+
+        return false
     }
 
     /**
      * Returns true if this hashtable maps one or more keys to this value.
      */
     override fun containsValue(value: V): Boolean {
-        TODO("Not yet implemented")
+        entries.forEach { entry ->
+            if (entry != null) {
+                if (entry.value == value) return true
+            }
+        }
+
+        return false
     }
 
     /**
@@ -71,21 +98,26 @@ class HashTableArray<K, V> : IHashTable<K, V> {
      * @return <code>true</code> if successful or <code>false</code> if the value existed.
      */
     override fun addIfAbsent(entry: HashTableEntry<K, V>): Boolean {
-        TODO("Not yet implemented")
+        return if (entries.contains(entry)) false
+        else {
+            put(entry)
+            true
+        }
     }
 
     /**
      * Tests if this hashtable maps no keys to values.
      */
-    override fun isEmpty(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isEmpty(): Boolean = entries.isEmpty()
 
     /**
      * Clears this hashtable so that it contains no keys.
      */
     override fun clear() {
-        TODO("Not yet implemented")
+        for (i in 0..entries.size)
+            entries[i] = null
+
+        count = 0
     }
 
 }
