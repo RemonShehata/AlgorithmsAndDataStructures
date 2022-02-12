@@ -27,7 +27,10 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
         private set
 
     var count: Int = 0
-        private set
+        private set(value) {
+            field = value
+            ensureCountIsCorrect()
+        }
 
 
     /**
@@ -238,6 +241,10 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
     override fun clear() {
         root = null
         count = 0
+    }
+
+    private fun ensureCountIsCorrect() {
+        check(this.count >= 0) { "Count can't be less than 0. count is ${this.count}" }
     }
 }
 
