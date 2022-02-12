@@ -468,7 +468,7 @@ internal class BinarySearchTreeTest {
      *                   / \        ---->            / \
      *                 5     10                     5  10
      *               / \     / \
-     *            null null  8 null
+     *            null null 8 null
      */
     @Test
     fun `given a multi-values tree, when remove is called with value on the right that has two children, return true and update count and root`() {
