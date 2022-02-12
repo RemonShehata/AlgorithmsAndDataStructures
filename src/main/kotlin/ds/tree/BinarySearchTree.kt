@@ -1,7 +1,7 @@
 package ds.tree
 
 /**
- * a node that  contains a single data item and pointers to the left and right child.
+ * a node that contains a single data item and pointers to the left and right child.
  */
 data class BinarySearchTreeNode<T : Comparable<T>>(
     val data: T,
@@ -84,36 +84,55 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
     override fun remove(bstNode: BinarySearchTreeNode<T>): Boolean {
 
         val nodeToRemove = search(bstNode) ?: return false
-        // if is root, clear everything
-        if (root?.let { bstNode.compareTo(it) } == 0) {
-            clear()
-            return true
-        }
 
         val parentOfNodeToRemove = findParent(nodeToRemove) //if null then I am removing root
-        val isRight = parentOfNodeToRemove!!.right == nodeToRemove
-//        if (parentOfNodeToRemove == null && nodeToRemove.isLeaf()) {
-//            root = null}
-        if (nodeToRemove.isLeaf()) {
-            if (isRight) parentOfNodeToRemove.right = null
-            else parentOfNodeToRemove.left = null
-        } else if (nodeToRemove.hasTwoChildren()) { //TODO: right -> left is null. what to do?
-            val nodeToPromote = nodeToRemove.right!!.left
-            nodeToRemove.right!!.left = null
-            if (isRight) parentOfNodeToRemove.right = nodeToPromote
-            else parentOfNodeToRemove.left = nodeToPromote
+        parentOfNodeToRemove?.let { parentNode ->
 
-            nodeToPromote!!.right = nodeToRemove.right
-            nodeToPromote.left = nodeToRemove.left
+            if (nodeToRemove.isLeaf()) {
+                if (nodeToRemove isRightChildOf parentNode) parentNode.right = null
+                else parentNode.left = null
 
-            nodeToRemove.right = null
-            nodeToRemove.left = null
+            } else if (nodeToRemove.hasTwoChildren()) { //TODO: right -> left is null. what to do?
+                val nodeToPromote = nodeToRemove.right!!.left
+                //nodeToRemove.right!!.left = null
+                if (nodeToRemove isRightChildOf parentNode) parentNode.right = nodeToPromote
+                else parentNode.left = nodeToPromote
 
-        } else if (nodeToRemove.hasOneChild()) {
-            val child = if (nodeToRemove.hasRightChild()) nodeToRemove.right
-            else nodeToRemove.left
-            if (isRight) parentOfNodeToRemove.right = child
-            else parentOfNodeToRemove.left = child
+                nodeToPromote!!.right = nodeToRemove.right
+                nodeToPromote.left = nodeToRemove.left
+
+                nodeToRemove.right = null
+                nodeToRemove.left = null
+
+            } else if (nodeToRemove.hasOneChild()) {
+                val child = if (nodeToRemove.hasRightChild()) nodeToRemove.right
+                else nodeToRemove.left
+                if (nodeToRemove isRightChildOf parentNode) parentOfNodeToRemove.right = child
+                else parentOfNodeToRemove.left = child
+            }
+
+        } ?: run {
+            // parent node is null means I am removing root
+            if (nodeToRemove.isLeaf()) {
+                // root && is leaf means I am the only node in the tree
+                root = null
+            } else if (nodeToRemove.hasTwoChildren()) { //TODO: right -> left is null. what to do?
+                val nodeToPromote = nodeToRemove.right!!.left
+                nodeToRemove.right!!.left = null
+                root = nodeToPromote
+//                if (nodeToRemove isRightChildOf parentNode) parentNode.right = nodeToPromote
+//                else parentNode.left = nodeToPromote
+
+                nodeToPromote!!.right = nodeToRemove.right
+                nodeToPromote.left = nodeToRemove.left
+
+                nodeToRemove.right = null
+                nodeToRemove.left = null
+            } else {
+                // root but with one child
+                root = if (nodeToRemove.hasRightChild()) root!!.right
+                else root!!.left
+            }
         }
         count--
         return true
@@ -254,5 +273,5 @@ fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasLeftChild() = this.left != nu
 fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasOneChild() = this.left != null || this.right != null
 fun <T : Comparable<T>> BinarySearchTreeNode<T>.hasTwoChildren() = this.left != null && this.right != null
 
-infix fun <T : Comparable<T>> BinarySearchTreeNode<T>.isRight(childNode: BinarySearchTreeNode<T>) =
-    this.right!!.compareTo(childNode) == 0
+infix fun <T : Comparable<T>> BinarySearchTreeNode<T>.isRightChildOf(parentNode: BinarySearchTreeNode<T>): Boolean =
+    parentNode.right?.compareTo(this) == 0
