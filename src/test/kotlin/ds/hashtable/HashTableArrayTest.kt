@@ -379,4 +379,38 @@ internal class HashTableArrayTest {
         assertFalse(result)
     }
     //endregion
+
+    //region clear tests
+    @Test
+    fun `given empty clear, when clear is called, the hashtable is empty`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+         hashTableArray.clear()
+
+        // THEN
+        assertTrue(hashTableArray.isEmpty())
+    }
+
+    @Test
+    fun `given hashtable, when clear is called, the hashtable is empty`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        hashTableArray.clear()
+
+        // THEN
+        assertTrue(hashTableArray.isEmpty())
+        range.forEach {
+            val result = hashTableArray[it]
+            assertNull(result)
+        }
+    }
+    //endregion
 }
