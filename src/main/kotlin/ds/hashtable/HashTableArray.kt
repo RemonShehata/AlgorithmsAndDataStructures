@@ -42,7 +42,7 @@ class HashTableArray<K, V> : IHashTable<K, V> {
      */
     override fun remove(key: K): Boolean {
         val index = calculateHashCode(key)
-       
+
         entries[index]?.let {
             entries[index] = null
             count--
@@ -114,7 +114,7 @@ class HashTableArray<K, V> : IHashTable<K, V> {
     /**
      * Tests if this hashtable maps no keys to values.
      */
-    override fun isEmpty(): Boolean = entries.isEmpty()
+    override fun isEmpty(): Boolean = count == 0
 
     /**
      * Clears this hashtable so that it contains no keys.
