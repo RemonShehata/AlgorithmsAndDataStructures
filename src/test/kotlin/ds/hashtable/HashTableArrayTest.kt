@@ -155,4 +155,88 @@ internal class HashTableArrayTest {
     }
     //endregion
 
+    //region contains tests
+    @Test
+    fun `given an empty hashtable, when contains is called with any value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+        val entry = HashTableEntry(1, "1")
+        val result = hashTableArray.contains(entry)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a hashtable, when contains is called with non-existent value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val entry = HashTableEntry(11, "11")
+        val result = hashTableArray.contains(entry)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a hashtable, when contains is called with correct key and wrong value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val entry = HashTableEntry(1, "11")
+        val result = hashTableArray.contains(entry)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a hashtable, when contains is called with correct value and wrong key, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val entry = HashTableEntry(15, "1")
+        val result = hashTableArray.contains(entry)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given a hashtable, when contains is called with existent value, return the true`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.get(9)
+
+        // THEN
+        val expectedValue = "9"
+        assertNotNull(result)
+        assertEquals(expectedValue, result)
+    }
+    //endregion
+
 }
