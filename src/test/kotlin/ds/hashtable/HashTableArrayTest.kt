@@ -331,4 +331,52 @@ internal class HashTableArrayTest {
     }
     //endregion
 
+    //region addIfAbsent tests
+    @Test
+    fun `given empty hashtable, when addIfAbsent is called with any value, return true`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+        val entry = HashTableEntry(1, "1")
+        val result = hashTableArray.addIfAbsent(entry)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given hashtable, when addIfAbsent is called with non-existent value, return true`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val entry = HashTableEntry(12, "12")
+        val result = hashTableArray.addIfAbsent(entry)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given hashtable, when addIfAbsent is called with existent value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val entry = HashTableEntry(5, "5")
+        val result = hashTableArray.addIfAbsent(entry)
+
+        // THEN
+        assertFalse(result)
+    }
+    //endregion
 }
