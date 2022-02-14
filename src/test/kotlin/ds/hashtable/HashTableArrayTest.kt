@@ -59,4 +59,52 @@ internal class HashTableArrayTest {
     }
     //endregion
 
+    //region remove tests
+    @Test
+    fun `given empty hashtable, when remove is called with any value, return false`(){
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+        val result = hashTableArray.remove(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hashtable, when remove is called with non-existent value, return false`(){
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.remove(12)
+
+        // THEN
+        assertFalse(result)
+        assertNull(hashTableArray.getValue(12))
+    }
+
+    @Test
+    fun `given hashtable, when remove is called with existent value, value is removed return false`(){
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.remove(9)
+
+        // THEN
+        assertTrue(result)
+        assertNull(hashTableArray.getValue(9))
+    }
+    //endregion
+
 }
