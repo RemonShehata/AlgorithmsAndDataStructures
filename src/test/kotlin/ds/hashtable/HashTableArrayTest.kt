@@ -239,7 +239,7 @@ internal class HashTableArrayTest {
     }
     //endregion
 
-    //region containsKey
+    //region containsKey tests
     @Test
     fun `given empty hashtable, when containsKey is called with any value, return false`() {
         // GIVEN
@@ -279,6 +279,52 @@ internal class HashTableArrayTest {
 
         // WHEN
         val result = hashTableArray.containsKey(9)
+
+        // THEN
+        assertTrue(result)
+    }
+    //endregion
+
+    //region containsValue tests
+    @Test
+    fun `given empty hashtable, when containsValue is called with any value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+        val result = hashTableArray.containsValue("5")
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hashtable, when containsValue is called with non-existent value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.containsValue("12")
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hashtable, when containsValue is called with existent value, return true`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.containsValue("9")
 
         // THEN
         assertTrue(result)
