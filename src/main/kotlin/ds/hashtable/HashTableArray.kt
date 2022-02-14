@@ -120,7 +120,7 @@ class HashTableArray<K, V> : IHashTable<K, V> {
      * Clears this hashtable so that it contains no keys.
      */
     override fun clear() {
-        for (i in 0..entries.size)
+        for (i in entries.indices)
             entries[i] = null
 
         count = 0
