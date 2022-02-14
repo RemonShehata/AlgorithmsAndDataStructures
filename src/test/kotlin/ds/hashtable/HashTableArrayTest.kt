@@ -138,7 +138,7 @@ internal class HashTableArrayTest {
     }
 
     @Test
-    fun `given hashtable, when remove is called with existent value, value is removed return false`() {
+    fun `given hashtable, when remove is called with existent value, value is removed return true`() {
         // GIVEN
         val hashTableArray = HashTableArray<Int, String>()
         val range = 1..10
@@ -236,6 +236,52 @@ internal class HashTableArrayTest {
         val expectedValue = "9"
         assertNotNull(result)
         assertEquals(expectedValue, result)
+    }
+    //endregion
+
+    //region containsKey
+    @Test
+    fun `given empty hashtable, when containsKey is called with any value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+        val result = hashTableArray.containsKey(5)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hashtable, when containsKey is called with non-existent value, return false`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.containsKey(12)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hashtable, when containsKey is called with existent value, return true`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.containsKey(9)
+
+        // THEN
+        assertTrue(result)
     }
     //endregion
 
