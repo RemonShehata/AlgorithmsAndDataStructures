@@ -59,9 +59,57 @@ internal class HashTableArrayTest {
     }
     //endregion
 
+    //region get tests
+    @Test
+    fun `given an empty hashtable, when get is called with any value, return null`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+
+        // WHEN
+        val result = hashTableArray.get(1)
+
+        // THEN
+        assertNull(result)
+    }
+
+    @Test
+    fun `given a hashtable, when get is called with non-existent value, return null`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.get(12)
+
+        // THEN
+        assertNull(result)
+    }
+
+    @Test
+    fun `given a hashtable, when get is called with existent value, return the value`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..10
+        range.forEach {
+            hashTableArray[it] = it.toString()
+        }
+
+        // WHEN
+        val result = hashTableArray.get(9)
+
+        // THEN
+        val expectedValue = "9"
+        assertNotNull(result)
+        assertEquals(expectedValue, result)
+    }
+    //endregion
+
     //region remove tests
     @Test
-    fun `given empty hashtable, when remove is called with any value, return false`(){
+    fun `given empty hashtable, when remove is called with any value, return false`() {
         // GIVEN
         val hashTableArray = HashTableArray<Int, String>()
 
@@ -73,7 +121,7 @@ internal class HashTableArrayTest {
     }
 
     @Test
-    fun `given hashtable, when remove is called with non-existent value, return false`(){
+    fun `given hashtable, when remove is called with non-existent value, return false`() {
         // GIVEN
         val hashTableArray = HashTableArray<Int, String>()
         val range = 1..10
@@ -90,7 +138,7 @@ internal class HashTableArrayTest {
     }
 
     @Test
-    fun `given hashtable, when remove is called with existent value, value is removed return false`(){
+    fun `given hashtable, when remove is called with existent value, value is removed return false`() {
         // GIVEN
         val hashTableArray = HashTableArray<Int, String>()
         val range = 1..10
