@@ -83,4 +83,52 @@ internal class HashTableTest {
         assertEquals(expectedValue, hashTable.getValue(1))
     }
     //endregion
+
+    //region get tests
+    @Test
+    fun `given empty hash table, when get is called with any key, return null`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+
+        // WHEN
+        val result = hashTable[1]
+        val result2 = hashTable.getValue(1)
+
+        // THEN
+        assertNull(result)
+        assertNull(result2)
+    }
+
+    @Test
+    fun `given a hash table, when get is called with non-existent key, return null`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable[2] = 2
+
+        // WHEN
+        val result = hashTable[1]
+        val result2 = hashTable.getValue(1)
+
+        // THEN
+        assertNull(result)
+        assertNull(result2)
+    }
+
+    @Test
+    fun `given a hash table, when get is called with existent key, return the value`() {
+        // GIVEN
+        val hashTable = HashTable<Int, String>(null)
+        hashTable[2] = "2"
+        hashTable[3] = "3"
+
+        // WHEN
+        val result = hashTable[2]
+        val result2 = hashTable.getValue(2)
+
+        // THEN
+        assertEquals(result, "2")
+        assertEquals(result2, "2")
+    }
+
+    //endregion
 }
