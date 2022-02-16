@@ -56,22 +56,6 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
             entries[index] = singlyLinkedList
         }
         count++
-
-//        if (!keyExist(entries[index], entry.key)) {
-//            val singlyLinkedList = SinglyLinkedList<HashTableEntry<K, V>?>()
-//            singlyLinkedList.addHead(entry)
-//            entries[index] = singlyLinkedList
-//            entries[index]?.let {
-//                it.addHead(entry)
-//                count++
-//            } ?: kotlin.run { Logger.getAnonymousLogger().log(Level.SEVERE, "linked list is null") }
-//        } else {
-//            entries[index]?.let {
-//                val index2 = it.indexOf(entry)
-//                it.removeAtIndex(index2)
-//                it.addHead(entry)
-//            }
-//        }
     }
 
     private fun put(key: K, value: V, localEntries: Array<SinglyLinkedList<HashTableEntry<K, V>>>) {
@@ -180,16 +164,6 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
 
     override fun isEmpty(): Boolean = count == 0
 }
-
-//fun <K, V> keyExist(linkedList: SinglyLinkedList<HashTableEntry<K, V>?>?, key: K): Boolean {
-//    if (linkedList == null || linkedList.count == 0) return false
-//    var current = linkedList.head
-//    while (current != null) {
-//        if (current.value?.key == key) return true
-//        current = current.next
-//    }
-//    return false
-//}
 
 infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.keyExist(key: K): Boolean {
     if (this.count == 0) return false
