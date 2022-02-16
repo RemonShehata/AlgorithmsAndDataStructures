@@ -4,6 +4,7 @@ import ds.linked_list.SinglyLinkedList
 import java.util.logging.Level
 import java.util.logging.Logger
 
+// TODO: add dokka
 class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     companion object {
         private const val defaultCapacity = 16
@@ -42,7 +43,6 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
             // not null means we already have a linked list here
             if (it keyExist entry.key) {
                 // replace the value
-                // TODO: MAKE THIS ONE LINER?
                 val successfulRemoval = it.remove(entry)
                 if (!successfulRemoval)
                     DsLogger.loge(message = "failed to remove entry from linked list")
@@ -94,11 +94,11 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
 
-    override fun get(key: K): V? {
+    override operator fun get(key: K): V? {
         return getValue(key)
     }
 
-    override fun set(key: K, value: V) {
+    override operator fun set(key: K, value: V) {
         put(key, value)
     }
 
