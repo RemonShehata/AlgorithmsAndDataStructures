@@ -154,12 +154,40 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     override fun isEmpty(): Boolean = count == 0
 }
 
-fun <K, V> keyExist(linkedList: SinglyLinkedList<HashTableEntry<K, V>?>?, key: K): Boolean {
-    if (linkedList == null || linkedList.count == 0) return false
-    var current = linkedList.head
+//fun <K, V> keyExist(linkedList: SinglyLinkedList<HashTableEntry<K, V>?>?, key: K): Boolean {
+//    if (linkedList == null || linkedList.count == 0) return false
+//    var current = linkedList.head
+//    while (current != null) {
+//        if (current.value?.key == key) return true
+//        current = current.next
+//    }
+//    return false
+//}
+
+infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.keyExist(key: K): Boolean {
+    if (this.count == 0) return false
+
+    var current = this.head
     while (current != null) {
         if (current.value?.key == key) return true
         current = current.next
     }
     return false
+}
+
+infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.getValueForKey(key: K): V? {
+    if (this.count == 0) return null
+    var current = this.head
+    while (current != null) {
+        if (current.value?.key == key) return current.value?.value
+        current = current.next
+    }
+    return null
+}
+
+
+object DsLogger {
+    fun loge(tag: String = "Remon", message: String) {
+        Logger.getAnonymousLogger().log(Level.SEVERE, "linked list is null")
+    }
 }
