@@ -155,7 +155,7 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
     override fun clear() {
-        for (i in 0..entries.size)
+        for (i in entries.indices)
             entries[i] = null
 
         count = 0
