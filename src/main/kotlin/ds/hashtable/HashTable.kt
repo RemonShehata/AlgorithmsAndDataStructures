@@ -108,7 +108,6 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
             return it getValueForKey key
         }
         return null
-//        return entries[index]?.head?.value?.value
     }
 
     override fun addIfAbsent(entry: HashTableEntry<K, V>): Boolean {
