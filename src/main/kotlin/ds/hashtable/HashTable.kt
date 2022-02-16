@@ -121,7 +121,11 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
 
     override fun getValue(key: K): V? {
         val index = calculateHashCode(key)
-        return entries[index]?.head?.value?.value
+        entries[index]?.let {
+            return it getValueForKey key
+        }
+        return null
+//        return entries[index]?.head?.value?.value
     }
 
     override fun addIfAbsent(entry: HashTableEntry<K, V>): Boolean {
