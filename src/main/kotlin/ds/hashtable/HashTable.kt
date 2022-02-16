@@ -37,18 +37,41 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
 
     private fun add(entry: HashTableEntry<K, V>) {
         val index = calculateHashCode(entry.key)
-        if (!keyExist(entries[index], entry.key)) {
-            entries[index]?.let {
-                it.addHead(entry)
-                count++
-            } ?: kotlin.run { Logger.getAnonymousLogger().log(Level.SEVERE, "linked list is null") }
-        } else {
-            entries[index]?.let {
-                val index2 = it.indexOf(entry)
-                it.removeAtIndex(index2)
-                it.addHead(entry)
+
+        entries[index]?.let {
+            // not null means we already have a linked list here
+            if (it keyExist entry.key) {
+                // replace the value
+                // TODO: MAKE THIS ONE LINER?
+                val successfulRemoval = it.remove(entry)
+                if (!successfulRemoval)
+                    DsLogger.loge(message = "failed to remove entry from linked list")
             }
+            it.addHead(entry)
+        } ?: run {
+            // null means we don't have a linked list yet
+            // Thus, we are sure that the key doesn't exist
+            val singlyLinkedList = SinglyLinkedList<HashTableEntry<K, V>?>()
+            singlyLinkedList.addHead(entry)
+            entries[index] = singlyLinkedList
         }
+        count++
+
+//        if (!keyExist(entries[index], entry.key)) {
+//            val singlyLinkedList = SinglyLinkedList<HashTableEntry<K, V>?>()
+//            singlyLinkedList.addHead(entry)
+//            entries[index] = singlyLinkedList
+//            entries[index]?.let {
+//                it.addHead(entry)
+//                count++
+//            } ?: kotlin.run { Logger.getAnonymousLogger().log(Level.SEVERE, "linked list is null") }
+//        } else {
+//            entries[index]?.let {
+//                val index2 = it.indexOf(entry)
+//                it.removeAtIndex(index2)
+//                it.addHead(entry)
+//            }
+//        }
     }
 
     private fun put(key: K, value: V, localEntries: Array<SinglyLinkedList<HashTableEntry<K, V>>>) {
@@ -139,7 +162,7 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
             entries[index] = null
             count--
             return true
-        }?: run {
+        } ?: run {
             return false
         }
     }
