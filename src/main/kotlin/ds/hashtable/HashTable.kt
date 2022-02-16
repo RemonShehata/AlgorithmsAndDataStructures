@@ -28,20 +28,8 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
     override fun put(entry: HashTableEntry<K, V>) {
-        if (atMaximumCapacity()) {
-            val temp = entries
-            val largerArray: Array<SinglyLinkedList<HashTableEntry<K, V>?>?> = arrayOfNulls(largerArraySize)
-            entries = largerArray
-
-            temp.forEach { singleListItem ->
-                singleListItem?.forEach { entry ->
-                    if (entry != null) {
-                        add(entry)
-                    }
-                }
-            }
-
-            arraySize = largerArraySize
+        if (atMaximumCapacity) {
+            allocateLargerArray()
         }
 
         add(entry)
@@ -78,12 +66,25 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
 //        }
     }
 
-    private fun atMaximumCapacity(): Boolean = count >= arraySize * fillFactor
+    private val atMaximumCapacity: Boolean
+        get() = count >= arraySize * fillFactor
     private val largerArraySize: Int
         get() = (arraySize * growthFactor).toInt()
 
-    fun allocateLargerArray() {
+    private fun allocateLargerArray() {
+        val temp = entries
+        val largerArray: Array<SinglyLinkedList<HashTableEntry<K, V>?>?> = arrayOfNulls(largerArraySize)
+        entries = largerArray
 
+        temp.forEach { singleListItem ->
+            singleListItem?.forEach { entry ->
+                if (entry != null) {
+                    add(entry)
+                }
+            }
+        }
+
+        arraySize = largerArraySize
     }
 
 
