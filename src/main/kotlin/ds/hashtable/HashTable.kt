@@ -79,15 +79,14 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         get() = (arraySize * growthFactor).toInt()
 
     private fun allocateLargerArray() {
-        val temp = entries
+        val temp = entries.copyOf()
+        clear()
         val largerArray: Array<SinglyLinkedList<HashTableEntry<K, V>?>?> = arrayOfNulls(largerArraySize)
         entries = largerArray
 
         temp.forEach { singleListItem ->
             singleListItem?.forEach { entry ->
-                if (entry != null) {
-                    add(entry)
-                }
+                entry?.let { add(it) }
             }
         }
 
