@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 internal class HashTableTest {
 
-    //region put tests
+    //region put and set tests
     @Test
     fun `given empty hashtable, when put is called and not at maximum capacity, value is added to the same array`() {
         // GIVEN
@@ -32,7 +32,7 @@ internal class HashTableTest {
         }
 
         // WHEN
-        hashTable.put(5, "5")
+        hashTable[5] = "5"
 
         //THEN
         val expectedCount = 5
@@ -129,6 +129,5 @@ internal class HashTableTest {
         assertEquals(result, "2")
         assertEquals(result2, "2")
     }
-
     //endregion
 }
