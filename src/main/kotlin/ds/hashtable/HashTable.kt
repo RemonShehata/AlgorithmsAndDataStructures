@@ -4,7 +4,7 @@ import ds.linked_list.SinglyLinkedList
 import java.util.logging.Level
 import java.util.logging.Logger
 
-class HashTable<K, V>(private val initialCapacity: Int?) : IHashTable<K, V> {
+class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     companion object {
         private const val defaultCapacity = 16
         private const val fillFactor: Double = 0.80
