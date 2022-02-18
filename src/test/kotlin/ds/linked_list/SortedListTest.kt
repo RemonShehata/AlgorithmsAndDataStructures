@@ -1,8 +1,7 @@
 package ds.linked_list
 
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 
 internal class SortedListTest {
     //region head and count tests
@@ -572,6 +571,81 @@ internal class SortedListTest {
         val expectedCount = 0
         assertEquals(expectedCount, sortedList.count)
         assertNull(sortedList.head)
+    }
+    //endregion
+
+    //region Iterator tests
+    @Test
+    fun `given an empty list, when iterated through, number of iterations is zero`() {
+        // GIVEN
+        val singlyLinkedList = SortedList<Int>()
+
+        // WHEN
+        var numberOfIterations = 0
+        singlyLinkedList.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 0
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through, number of iterations is correct`() {
+        // GIVEN
+        val singlyLinkedList = SortedList<Int>()
+        val range = 1..5
+        range.forEach {
+            singlyLinkedList.add(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        singlyLinkedList.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 5
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice, number of iterations is correct`() {
+        // GIVEN
+        val singlyLinkedList = SortedList<Int>()
+        val range = 1..5
+        range.forEach {
+            singlyLinkedList.add(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        singlyLinkedList.forEach { numberOfIterations++ }
+        singlyLinkedList.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 10
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+        // GIVEN
+        val singlyLinkedList = SortedList<Int>()
+        val range = 1..5
+        range.forEach {
+            singlyLinkedList.add(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        singlyLinkedList.forEach {
+            if (it == 3) return
+            numberOfIterations++
+        }
+        singlyLinkedList.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 7
+        assertEquals(expectedIterations, numberOfIterations)
     }
     //endregion
 }
