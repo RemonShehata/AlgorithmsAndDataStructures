@@ -142,18 +142,22 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     override fun containsValue(value: V): Boolean {
         entries.forEach { list ->
             list?.let {
-                if (it valueExist  value) return true
+                if (it valueExist value) return true
             }
         }
         return false
     }
 
     override fun remove(key: K): Boolean {
+        if (!containsKey(key)) return false
         val index = calculateHashCode(key)
 
-        entries[index]?.let {
-
-            entries[index] = null
+        entries[index]?.let { list ->
+            val removalResult = list removeEntryForKey key
+            // should we throw exception here?
+            if (!removalResult) DsLogger.loge(message = "value wasn't removed from LinkedList")
+            // we removed the last item in the list
+            if (list.count == 0) entries[index] = null
             count--
             return true
         } ?: run {
@@ -201,6 +205,17 @@ infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.getValueForKey(key: K):
         current = current.next
     }
     return null
+}
+
+infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.removeEntryForKey(key: K): Boolean {
+    if (this.count == 0) return false
+    var current = this.head
+    while (current != null) {
+        if (current.value?.key == key) return this.remove(current)
+        current = current.next
+    }
+
+    return false
 }
 
 
