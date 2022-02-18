@@ -7,16 +7,10 @@ data class SinglyLinkedListNode<T>(var value: T) {
 class SinglyLinkedList<T> : ISinglyLinkedList<T> {
 
     var head: SinglyLinkedListNode<T>? = null
-        private set(value) {
-            cursor = value
-            field = value
-        }
+        private set
 
     var count = 0
         private set
-
-    // This is needed for iterator functionality.
-    private var cursor: SinglyLinkedListNode<T>? = null
 
     /**
      * adds value to the beginning of the [ISinglyLinkedList].
