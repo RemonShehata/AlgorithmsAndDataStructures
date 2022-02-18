@@ -258,4 +258,79 @@ internal class DequeueTest {
         assertFalse(result)
     }
     //endregion
+
+    //region Iterator tests
+    @Test
+    fun `given an empty list, when iterated through, number of iterations is zero`() {
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+
+        // WHEN
+        var numberOfIterations = 0
+        dequeue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 0
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through, number of iterations is correct`() {
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        val range = 1..5
+        range.forEach {
+            dequeue.enqueueHead(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        dequeue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 5
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice, number of iterations is correct`() {
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        val range = 1..5
+        range.forEach {
+            dequeue.enqueueHead(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        dequeue.forEach { numberOfIterations++ }
+        dequeue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 10
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+        // GIVEN
+        val dequeue = Dequeue<Int>()
+        val range = 1..5
+        range.forEach {
+            dequeue.enqueueHead(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        dequeue.forEach {
+            if (it == 3) return
+            numberOfIterations++
+        }
+        dequeue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 7
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+    //endregion
 }

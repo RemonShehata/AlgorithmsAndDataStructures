@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-internal class QueueTest{
+internal class QueueTest {
     //region count
     @Test
     fun `given empty queue, when count is called, it is zero`() {
@@ -147,6 +147,81 @@ internal class QueueTest{
 
         // THEN
         assertFalse(result)
+    }
+    //endregion
+
+    //region Iterator tests
+    @Test
+    fun `given an empty list, when iterated through, number of iterations is zero`() {
+        // GIVEN
+        val queue = Queue<Int>()
+
+        // WHEN
+        var numberOfIterations = 0
+        queue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 0
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through, number of iterations is correct`() {
+        // GIVEN
+        val queue = Queue<Int>()
+        val range = 1..5
+        range.forEach {
+            queue.enqueue(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        queue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 5
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice, number of iterations is correct`() {
+        // GIVEN
+        val queue = Queue<Int>()
+        val range = 1..5
+        range.forEach {
+            queue.enqueue(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        queue.forEach { numberOfIterations++ }
+        queue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 10
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+        // GIVEN
+        val queue = Queue<Int>()
+        val range = 1..5
+        range.forEach {
+            queue.enqueue(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        queue.forEach {
+            if (it == 3) return
+            numberOfIterations++
+        }
+        queue.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 7
+        assertEquals(expectedIterations, numberOfIterations)
     }
     //endregion
 }
