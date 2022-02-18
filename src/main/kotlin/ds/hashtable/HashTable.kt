@@ -140,12 +140,11 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
     override fun containsValue(value: V): Boolean {
-        entries.forEach { entry ->
-            if (entry != null) {
-//                if (entry.value == value) return true
+        entries.forEach { list ->
+            list?.let {
+                if (it valueExist  value) return true
             }
         }
-
         return false
     }
 
@@ -178,6 +177,17 @@ infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.keyExist(key: K): Boole
     var current = this.head
     while (current != null) {
         if (current.value?.key == key) return true
+        current = current.next
+    }
+    return false
+}
+
+infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.valueExist(value: V): Boolean {
+    if (this.count == 0) return false
+
+    var current = this.head
+    while (current != null) {
+        if (current.value?.value == value) return true
         current = current.next
     }
     return false
