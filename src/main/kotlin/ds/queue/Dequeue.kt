@@ -88,4 +88,6 @@ class Dequeue<E> : IDequeue<E> {
     override fun isEmpty(): Boolean {
         return store.count == 0
     }
+
+    override fun iterator() = store.iterator()
 }

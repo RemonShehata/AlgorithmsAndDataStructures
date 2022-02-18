@@ -1,6 +1,6 @@
 package ds.queue
 
-interface IDequeue<E> {
+interface IDequeue<E> : Iterable<E> {
 
     /**
      * adds an item to the beginning of this dequeue.
