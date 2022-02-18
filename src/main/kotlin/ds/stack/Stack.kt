@@ -68,4 +68,6 @@ class Stack<E> : IStack<E> {
     override fun indexOf(item: E): Int {
         TODO("Not yet implemented")
     }
+
+    override fun iterator() = store.iterator()
 }

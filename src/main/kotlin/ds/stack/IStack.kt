@@ -1,6 +1,6 @@
 package ds.stack
 
-interface IStack<E> {
+interface IStack<E> : Iterable<E> {
 
     /**
      * Pushes an item onto the top of this stack.
