@@ -111,8 +111,11 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
     override fun addIfAbsent(entry: HashTableEntry<K, V>): Boolean {
-//        if (entries.contains(entry)) put(entry)
-        return true
+        return if (this.contains(entry)) false
+        else {
+            this.put(entry)
+            true
+        }
     }
 
     override fun contains(entry: HashTableEntry<K, V>): Boolean {
