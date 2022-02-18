@@ -130,4 +130,91 @@ internal class HashTableTest {
         assertEquals(result2, "2")
     }
     //endregion
+
+    // region contains tests
+    @Test
+    fun `given empty hash table, when contains is called with any hashtable entry, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+
+        // WHEN
+        val result = hashTable.contains(HashTableEntry(1, 2))
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hash table, when contains is called with non-existent hashtable entry, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(3, 4)
+
+        // WHEN
+        val result = hashTable.contains(HashTableEntry(1, 2))
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hash table, when contains is called with right key and wrong value, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(1, 4)
+
+        // WHEN
+        val result = hashTable.contains(HashTableEntry(1, 2))
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hash table, when contains is called with right value and wrong key, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(4, 2)
+
+        // WHEN
+        val result = hashTable.contains(HashTableEntry(1, 2))
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hash table, when contains is called with existent hashtable entry, return true`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(1, 2)
+
+        // WHEN
+        val result = hashTable.contains(HashTableEntry(1, 2))
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given hash table, when contains is called with existent hashtable entry with the same index, return true`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTable = HashTable<String, Int>(null)
+        hashTable.put("Aa", 1)
+        hashTable.put("BB", 2)
+
+
+        // WHEN
+
+        val result = hashTable.contains(HashTableEntry("Aa", 1))
+        val result2 = hashTable.contains(HashTableEntry("BB", 2))
+
+        // THEN
+        assertTrue(result)
+        assertTrue(result2)
+    }
+
+
+    //endregion
 }
