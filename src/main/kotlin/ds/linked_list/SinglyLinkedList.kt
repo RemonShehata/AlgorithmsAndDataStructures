@@ -237,20 +237,13 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         count = 0
     }
 
-    override fun hasNext(): Boolean {
-        // the problem is when I return in the middle of the loop
-        // then start new for each
-        // cursor is not equal head
-        return if (cursor == null){
-            cursor = head
-            false
-        } else {
-            true
+    override fun iterator() = object: Iterator<T> {
+        private var cursor: SinglyLinkedListNode<T>? = head
+
+        override fun hasNext() = cursor != null
+
+        override fun next() = (cursor?.value ?: throw NoSuchElementException()).also {
+            cursor = cursor?.next
         }
-    }
-    override fun next(): T {
-        val temp = cursor
-        cursor = cursor!!.next
-        return temp!!.value
     }
 }
