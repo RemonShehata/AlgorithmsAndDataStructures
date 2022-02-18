@@ -128,4 +128,79 @@ internal class StackTest {
         assertFalse(result)
     }
     //endregion
+
+    //region Iterable tests
+    @Test
+    fun `given an empty stack, when iterated through, number of iterations is zero`() {
+        // GIVEN
+        val stack = Stack<Int>()
+
+        // WHEN
+        var numberOfIterations = 0
+        stack.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 0
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a stack, when iterated through, number of iterations is correct`() {
+        // GIVEN
+        val stack = Stack<Int>()
+        val range = 1..5
+        range.forEach {
+            stack.push(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        stack.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 5
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a stack, when iterated through twice, number of iterations is correct`() {
+        // GIVEN
+        val stack = Stack<Int>()
+        val range = 1..5
+        range.forEach {
+            stack.push(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        stack.forEach { numberOfIterations++ }
+        stack.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 10
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a stack, when iterated through twice and return in the middle, number of iterations is correct`() {
+        // GIVEN
+        val stack = Stack<Int>()
+        val range = 1..5
+        range.forEach {
+            stack.push(it)
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        stack.forEach {
+            if (it == 3) return
+            numberOfIterations++
+        }
+        stack.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 7
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+    //endregion
 }
