@@ -150,7 +150,7 @@ internal class QueueTest {
     }
     //endregion
 
-    //region Iterator tests
+    //region Iterable tests
     @Test
     fun `given an empty list, when iterated through, number of iterations is zero`() {
         // GIVEN
