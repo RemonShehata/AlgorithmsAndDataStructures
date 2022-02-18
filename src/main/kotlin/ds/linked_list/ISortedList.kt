@@ -3,7 +3,7 @@ package ds.linked_list
 /**
  * Doubly linked list where items on the left are lesser than items on the right.
  */
-interface ISortedList<T : Comparable<T>>: Iterator<T> {
+interface ISortedList<T : Comparable<T>>: Iterable<T> {
 
     /**
      * adds [value] in sort order in [ISortedList].

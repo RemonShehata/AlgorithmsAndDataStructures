@@ -279,17 +279,13 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
         count = 0
     }
 
-    /**
-     * Returns `true` if the iteration has more elements.
-     */
-    override fun hasNext() = cursor != null
+    override fun iterator() = object : Iterator<T> {
+        private var cursor: SortedListNode<T>? = head
 
-    /**
-     * Returns the next element in the iteration.
-     */
-    override fun next(): T {
-        val temp = cursor
-        cursor = cursor!!.next
-        return temp!!.value
+        override fun hasNext() = cursor != null
+
+        override fun next() = (cursor?.value ?: throw NoSuchElementException()).also {
+            cursor = cursor?.next
+        }
     }
 }
