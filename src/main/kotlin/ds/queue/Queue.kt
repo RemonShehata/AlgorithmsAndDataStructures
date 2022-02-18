@@ -47,4 +47,6 @@ class Queue<E> : IQueue<E> {
     override fun isEmpty(): Boolean {
         return count == 0
     }
+
+    override fun iterator() = store.iterator()
 }

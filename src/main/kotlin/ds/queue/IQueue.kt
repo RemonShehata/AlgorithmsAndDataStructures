@@ -1,6 +1,6 @@
 package ds.queue
 
-interface IQueue<E> {
+interface IQueue<E>: Iterable<E> {
 
     /**
      * adds an item to the end of this queue.
