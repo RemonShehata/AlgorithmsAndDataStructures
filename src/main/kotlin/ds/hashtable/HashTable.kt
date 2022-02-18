@@ -116,8 +116,15 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
     override fun contains(entry: HashTableEntry<K, V>): Boolean {
-//        return entries.contains(entry)
-        return true
+        entries.forEach { list ->
+            list?.let {
+                it.forEach { hashTableEntry ->
+                    println("$hashTableEntry")
+                    if (entry == hashTableEntry) return true
+                }
+            }
+        }
+        return false
     }
 
     override fun containsKey(key: K): Boolean {
