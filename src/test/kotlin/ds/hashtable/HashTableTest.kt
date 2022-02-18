@@ -434,4 +434,70 @@ internal class HashTableTest {
         assertTrue(result2)
     }
     //endregion
+
+    //region remove tests
+    @Test
+    fun `given an empty hashtable, when remove is called with any key, return false`(){
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+
+        // WHEN
+        val result = hashTable.remove(1)
+
+        // THEN
+        assertFalse(result)
+        val expectedCount = 0
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given a hashtable, when remove is called with non-existing key, return false`(){
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(2,3)
+
+        // WHEN
+        val result = hashTable.remove(1)
+
+        // THEN
+        assertFalse(result)
+        val expectedCount = 1
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given a hashtable, when remove is called with existing key, return true`(){
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(2,3)
+
+        // WHEN
+        val result = hashTable.remove(2)
+
+        // THEN
+        assertTrue(result)
+        val expectedCount = 0
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given hash table, when remove is called with existent key with the same index, return true`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTable = HashTable<String, Int>(null)
+        hashTable.put("Aa", 1)
+        hashTable.put("BB", 2)
+
+
+        // WHEN
+        val result = hashTable.remove("Aa")
+        val result2 = hashTable.remove("BB")
+
+        // THEN
+        assertTrue(result)
+        assertTrue(result2)
+        val expectedCount = 0
+        assertEquals(expectedCount, hashTable.count)
+    }
+    //endregion
 }
