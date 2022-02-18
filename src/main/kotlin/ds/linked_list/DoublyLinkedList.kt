@@ -13,16 +13,10 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         private set
 
     var head: DoublyLinkedListNode<T>? = null
-        private set(value) {
-            cursor = value
-            field = value
-        }
+        private set
 
     var count: Int = 0
         private set
-
-    // This is needed for iterator functionality.
-    private var cursor: DoublyLinkedListNode<T>? = null
 
     /**
      * adds value to the beginning of the [IDoublyLinkedList].
@@ -306,10 +300,13 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         count = 0
     }
 
-    override fun hasNext() = cursor != null
-    override fun next(): T {
-        val temp = cursor
-        cursor = cursor!!.next
-        return temp!!.value
+    override fun iterator() = object: Iterator<T> {
+        private var cursor: DoublyLinkedListNode<T>? = head
+
+        override fun hasNext() = cursor != null
+
+        override fun next() = (cursor?.value ?: throw NoSuchElementException()).also {
+            cursor = cursor?.next
+        }
     }
 }

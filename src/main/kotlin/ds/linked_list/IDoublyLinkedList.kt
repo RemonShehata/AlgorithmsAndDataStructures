@@ -1,6 +1,6 @@
 package ds.linked_list
 
-interface IDoublyLinkedList<T> : Iterator<T> {
+interface IDoublyLinkedList<T> : Iterable<T> {
 
     /**
      * adds value to the beginning of the [IDoublyLinkedList].
