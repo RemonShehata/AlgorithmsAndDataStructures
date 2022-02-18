@@ -152,7 +152,7 @@ internal class QueueTest {
 
     //region Iterable tests
     @Test
-    fun `given an empty list, when iterated through, number of iterations is zero`() {
+    fun `given an empty queue, when iterated through, number of iterations is zero`() {
         // GIVEN
         val queue = Queue<Int>()
 
@@ -166,7 +166,7 @@ internal class QueueTest {
     }
 
     @Test
-    fun `given a list, when iterated through, number of iterations is correct`() {
+    fun `given a queue, when iterated through, number of iterations is correct`() {
         // GIVEN
         val queue = Queue<Int>()
         val range = 1..5
@@ -184,7 +184,7 @@ internal class QueueTest {
     }
 
     @Test
-    fun `given a list, when iterated through twice, number of iterations is correct`() {
+    fun `given a queue, when iterated through twice, number of iterations is correct`() {
         // GIVEN
         val queue = Queue<Int>()
         val range = 1..5
@@ -203,7 +203,7 @@ internal class QueueTest {
     }
 
     @Test
-    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+    fun `given a queue, when iterated through twice and return in the middle, number of iterations is correct`() {
         // GIVEN
         val queue = Queue<Int>()
         val range = 1..5

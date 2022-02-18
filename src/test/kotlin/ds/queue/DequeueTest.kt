@@ -261,7 +261,7 @@ internal class DequeueTest {
 
     //region Iterable tests
     @Test
-    fun `given an empty list, when iterated through, number of iterations is zero`() {
+    fun `given an empty dequeue, when iterated through, number of iterations is zero`() {
         // GIVEN
         val dequeue = Dequeue<Int>()
 
@@ -275,7 +275,7 @@ internal class DequeueTest {
     }
 
     @Test
-    fun `given a list, when iterated through, number of iterations is correct`() {
+    fun `given a dequeue, when iterated through, number of iterations is correct`() {
         // GIVEN
         val dequeue = Dequeue<Int>()
         val range = 1..5
@@ -293,7 +293,7 @@ internal class DequeueTest {
     }
 
     @Test
-    fun `given a list, when iterated through twice, number of iterations is correct`() {
+    fun `given a dequeue, when iterated through twice, number of iterations is correct`() {
         // GIVEN
         val dequeue = Dequeue<Int>()
         val range = 1..5
@@ -312,7 +312,7 @@ internal class DequeueTest {
     }
 
     @Test
-    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+    fun `given a dequeue, when iterated through twice and return in the middle, number of iterations is correct`() {
         // GIVEN
         val dequeue = Dequeue<Int>()
         val range = 1..5
