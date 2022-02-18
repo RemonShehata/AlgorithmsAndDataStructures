@@ -217,4 +217,103 @@ internal class HashTableTest {
 
 
     //endregion
+
+    // region addIfAbsent tests
+    @Test
+    fun `given empty hash table, when addIfAbsent is called with any hashtable entry, return true`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+
+        // WHEN
+        val result = hashTable.addIfAbsent(HashTableEntry(1, 2))
+
+        // THEN
+        assertTrue(result)
+        val expectedCount = 1
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given hash table, when addIfAbsent is called with non-existent hashtable entry, return true`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(3, 4)
+
+        // WHEN
+        val result = hashTable.addIfAbsent(HashTableEntry(1, 2))
+
+        // THEN
+        assertTrue(result)
+        val expectedCount = 2
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given hash table, when addIfAbsent is called with existing key and non-existing value, return true`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(1, 4)
+
+        // WHEN
+        val result = hashTable.addIfAbsent(HashTableEntry(1, 2))
+
+        // THEN
+        assertTrue(result)
+        // make sure new value is replaced for the same key
+        assertEquals(2, hashTable[1])
+        val expectedCount = 2
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given hash table, when addIfAbsent is called with existing value and non-existing key, return true`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(4, 2)
+
+        // WHEN
+        val result = hashTable.addIfAbsent(HashTableEntry(1, 2))
+
+        // THEN
+        val expectedCount = 2
+        assertTrue(result)
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given hash table, when addIfAbsent is called with existent hashtable entry, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(1, 2)
+
+        // WHEN
+        val result = hashTable.addIfAbsent(HashTableEntry(1, 2))
+
+        // THEN
+        assertFalse(result)
+        val expectedCount = 1
+        assertEquals(expectedCount, hashTable.count)
+    }
+
+    @Test
+    fun `given hash table, when addIfAbsent is called with existent hashtable entry with the same index, return false`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTable = HashTable<String, Int>(null)
+        hashTable.put("Aa", 1)
+        hashTable.put("BB", 2)
+
+
+        // WHEN
+
+        val result = hashTable.addIfAbsent(HashTableEntry("Aa", 1))
+        val result2 = hashTable.addIfAbsent(HashTableEntry("BB", 2))
+
+        // THEN
+        assertFalse(result)
+        assertFalse(result2)
+        val expectedCount = 2
+        assertEquals(expectedCount, hashTable.count)
+    }
+    //endregion
 }
