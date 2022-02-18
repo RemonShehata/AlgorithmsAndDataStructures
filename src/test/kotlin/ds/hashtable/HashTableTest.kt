@@ -316,4 +316,63 @@ internal class HashTableTest {
         assertEquals(expectedCount, hashTable.count)
     }
     //endregion
+
+    // region containsKey tests
+    @Test
+    fun `given empty hash table, when containsKey is called with any key, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+
+        // WHEN
+        val result = hashTable.containsKey(1)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hash table, when containsKey is called with non-existent key, return false`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(3, 4)
+
+        // WHEN
+        val result = hashTable.containsKey(1)
+
+        // THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `given hash table, when containsKey is called with existent key, return true`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(1, 2)
+
+        // WHEN
+        val result = hashTable.containsKey(1)
+
+        // THEN
+        assertTrue(result)
+    }
+
+    @Test
+    fun `given hash table, when containsKey is called with existent key with the same index, return true`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTable = HashTable<String, Int>(null)
+        hashTable.put("Aa", 1)
+        hashTable.put("BB", 2)
+
+
+        // WHEN
+
+        val result = hashTable.containsKey("Aa")
+        val result2 = hashTable.containsKey("BB")
+
+        // THEN
+        assertTrue(result)
+        assertTrue(result2)
+    }
+    //endregion
 }
