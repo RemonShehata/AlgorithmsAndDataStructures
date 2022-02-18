@@ -231,7 +231,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
         count = 0
     }
 
-    override fun iterator() = object: Iterator<T> {
+    override fun iterator() = object : Iterator<T> {
         private var cursor: SinglyLinkedListNode<T>? = head
 
         override fun hasNext() = cursor != null

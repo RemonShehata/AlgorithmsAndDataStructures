@@ -185,7 +185,7 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         else if (value == head!!.value) {
             removeHead()
             return true
-        } else if (value == tail!!.value){
+        } else if (value == tail!!.value) {
             removeTail()
             return true
         }
@@ -300,7 +300,7 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         count = 0
     }
 
-    override fun iterator() = object: Iterator<T> {
+    override fun iterator() = object : Iterator<T> {
         private var cursor: DoublyLinkedListNode<T>? = head
 
         override fun hasNext() = cursor != null

@@ -47,8 +47,8 @@ class HashTableArray<K, V> : IHashTable<K, V> {
             entries[index] = null
             count--
             return true
-        }?: run {
-         return false
+        } ?: run {
+            return false
         }
     }
 
