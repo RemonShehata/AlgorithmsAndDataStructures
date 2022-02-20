@@ -413,4 +413,81 @@ internal class HashTableArrayTest {
         }
     }
     //endregion
+
+    //region Iterable tests
+    @Test
+    fun `given an empty hashtable, when iterated through, number of iterations is zero`() {
+        // GIVEN
+       val hashTableArray = HashTableArray<Int, Int>()
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 0
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a hashtable, when iterated through, number of iterations is correct`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..5
+        range.forEach {
+            hashTableArray.put(it, it.toString())
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 5
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a hashTableArray, when iterated through twice, number of iterations is correct`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..5
+        range.forEach {
+            hashTableArray.put(it, it.toString())
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach { numberOfIterations++ }
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 10
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+        // GIVEN
+        val hashTableArray = HashTableArray<Int, String>()
+        val range = 1..5
+        range.forEach {
+            hashTableArray.put(it, it.toString())
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach {
+            if (it != null) {
+                if (it.key == 3) return
+            }
+            numberOfIterations++
+        }
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 7
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+    //endregion
 }
