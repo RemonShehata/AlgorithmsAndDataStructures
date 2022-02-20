@@ -126,4 +126,16 @@ class HashTableArray<K, V> : IHashTable<K, V> {
         count = 0
     }
 
+    override fun iterator() = object : Iterator<HashTableEntry<K, V>> {
+        private var index = 0
+        private val nonNullableList: List<HashTableEntry<K, V>> = entries.filterNotNull()
+
+        override fun hasNext(): Boolean {
+            return (index in nonNullableList.indices)
+        }
+
+        override fun next(): HashTableEntry<K, V> {
+            return nonNullableList[index++]
+        }
+    }
 }
