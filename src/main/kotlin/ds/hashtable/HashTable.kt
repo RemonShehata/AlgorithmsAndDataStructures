@@ -1,6 +1,7 @@
 package ds.hashtable
 
 import ds.linked_list.SinglyLinkedList
+import ds.linked_list.SinglyLinkedListNode
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -173,6 +174,38 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
     override fun isEmpty(): Boolean = count == 0
+
+    override fun iterator() = object : Iterator<HashTableEntry<K, V>> {
+        private var arrayIndex = 0
+        private var linkedListIndex = 0
+        private val nonNullList = entries.filterNotNull()
+        private var currentSinglyLinkedListNode: SinglyLinkedListNode<HashTableEntry<K, V>?>? = null
+
+        override fun hasNext(): Boolean {
+            if (nonNullList.isEmpty() || arrayIndex !in nonNullList.indices) return false
+            return linkedListIndex <= nonNullList[arrayIndex].count
+        }
+
+        override fun next(): HashTableEntry<K, V> {
+            if (currentSinglyLinkedListNode == null) {
+                currentSinglyLinkedListNode = nonNullList[arrayIndex].head
+            }
+
+            val temp = currentSinglyLinkedListNode
+            currentSinglyLinkedListNode = currentSinglyLinkedListNode!!.next
+
+            if (currentSinglyLinkedListNode == null) {
+                // we reached the end of the linkedlist,
+                // start from the next element in the array
+                arrayIndex++
+                linkedListIndex = 0
+            } else {
+                linkedListIndex++
+            }
+
+            return temp!!.value!!
+        }
+    }
 }
 
 infix fun <K, V> SinglyLinkedList<HashTableEntry<K, V>?>.keyExist(key: K): Boolean {
