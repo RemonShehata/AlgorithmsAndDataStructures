@@ -500,4 +500,99 @@ internal class HashTableTest {
         assertEquals(expectedCount, hashTable.count)
     }
     //endregion
+    
+    //region Iterable tests
+    @Test
+    fun `given an empty hashtable, when iterated through, number of iterations is zero`() {
+        // GIVEN
+        val hashTableArray = HashTable<Int, Int>(null)
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 0
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a hashtable, when iterated through, number of iterations is correct`() {
+        // GIVEN
+        val hashTableArray = HashTable<Int, String>(null)
+        val range = 1..5
+        range.forEach {
+            hashTableArray.put(it, it.toString())
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 5
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a hashTableArray, when iterated through twice, number of iterations is correct`() {
+        // GIVEN
+        val hashTableArray = HashTable<Int, String>(null)
+        val range = 1..5
+        range.forEach {
+            hashTableArray.put(it, it.toString())
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach { numberOfIterations++ }
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 10
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given a list, when iterated through twice and return in the middle, number of iterations is correct`() {
+        // GIVEN
+        val hashTableArray = HashTable<Int, String>(null)
+        val range = 1..5
+        range.forEach {
+            hashTableArray.put(it, it.toString())
+        }
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach {
+            if (it.key == 3) return
+            numberOfIterations++
+        }
+        hashTableArray.forEach { numberOfIterations++ }
+
+        // THEN
+        val expectedIterations = 7
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+
+    @Test
+    fun `given hash table with collision, when iterated through, number of iterations is correct`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTable = HashTable<String, Int>(null)
+        hashTable.put("Aa", 1)
+        hashTable.put("BB", 2)
+
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTable.forEach {
+            numberOfIterations++
+        }
+
+        // THEN
+        val expectedIterations = 2
+        assertEquals(expectedIterations, numberOfIterations)
+    }
+    //endregion
 }
