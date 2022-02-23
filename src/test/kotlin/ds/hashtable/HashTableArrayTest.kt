@@ -489,5 +489,25 @@ internal class HashTableArrayTest {
         val expectedIterations = 7
         assertEquals(expectedIterations, numberOfIterations)
     }
+
+    @Test
+    fun `given hash table with collision, when iterated through, number of iterations is correct`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTableArray = HashTableArray<String, Int>()
+        hashTableArray.put("Aa", 1)
+        hashTableArray.put("BB", 2)
+
+
+        // WHEN
+        var numberOfIterations = 0
+        hashTableArray.forEach {
+            numberOfIterations++
+        }
+
+        // THEN
+        val expectedIterations = 1
+        assertEquals(expectedIterations, numberOfIterations)
+    }
     //endregion
 }
