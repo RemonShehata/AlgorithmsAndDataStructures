@@ -437,7 +437,7 @@ internal class HashTableTest {
 
     //region remove tests
     @Test
-    fun `given an empty hashtable, when remove is called with any key, return false`(){
+    fun `given an empty hashtable, when remove is called with any key, return false`() {
         // GIVEN
         val hashTable = HashTable<Int, Int>(null)
 
@@ -451,10 +451,10 @@ internal class HashTableTest {
     }
 
     @Test
-    fun `given a hashtable, when remove is called with non-existing key, return false`(){
+    fun `given a hashtable, when remove is called with non-existing key, return false`() {
         // GIVEN
         val hashTable = HashTable<Int, Int>(null)
-        hashTable.put(2,3)
+        hashTable.put(2, 3)
 
         // WHEN
         val result = hashTable.remove(1)
@@ -466,10 +466,10 @@ internal class HashTableTest {
     }
 
     @Test
-    fun `given a hashtable, when remove is called with existing key, return true`(){
+    fun `given a hashtable, when remove is called with existing key, return true`() {
         // GIVEN
         val hashTable = HashTable<Int, Int>(null)
-        hashTable.put(2,3)
+        hashTable.put(2, 3)
 
         // WHEN
         val result = hashTable.remove(2)
@@ -500,7 +500,65 @@ internal class HashTableTest {
         assertEquals(expectedCount, hashTable.count)
     }
     //endregion
-    
+
+    //region clear and isEmpty tests
+    @Test
+    fun `given an empty hashtable, when clear is called, reset everything`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+
+        // WHEN
+        hashTable.clear()
+        var numberOfIteration = 0
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, hashTable.count)
+        hashTable.forEach { numberOfIteration++ }
+        assertEquals(numberOfIteration, hashTable.count)
+        assertTrue(hashTable.isEmpty())
+    }
+
+    @Test
+    fun `given a hashtable, when clear is called, reset everything`() {
+        // GIVEN
+        val hashTable = HashTable<Int, Int>(null)
+        hashTable.put(2, 3)
+
+        // WHEN
+        hashTable.clear()
+        var numberOfIteration = 0
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, hashTable.count)
+        hashTable.forEach { numberOfIteration++ }
+        assertEquals(numberOfIteration, hashTable.count)
+        assertTrue(hashTable.isEmpty())
+    }
+
+    @Test
+    fun `given hash table with collision, when clear is called, reset everything`() {
+        // Aa and BB has the same hash value
+        // https://stackoverflow.com/questions/12925988/how-to-generate-strings-that-share-the-same-hashcode-in-java
+        val hashTable = HashTable<String, Int>(null)
+        hashTable.put("Aa", 1)
+        hashTable.put("BB", 2)
+
+
+        // WHEN
+        hashTable.clear()
+        var numberOfIteration = 0
+
+        // THEN
+        val expectedCount = 0
+        assertEquals(expectedCount, hashTable.count)
+        hashTable.forEach { numberOfIteration++ }
+        assertEquals(numberOfIteration, hashTable.count)
+        assertTrue(hashTable.isEmpty())
+    }
+    //endregion
+
     //region Iterable tests
     @Test
     fun `given an empty hashtable, when iterated through, number of iterations is zero`() {
