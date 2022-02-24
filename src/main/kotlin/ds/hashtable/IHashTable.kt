@@ -5,7 +5,6 @@ package ds.hashtable
  */
 data class HashTableEntry<K, V>(val key: K, val value: V)
 
-// TODO: implement iterator
 interface IHashTable<K, V>:  Iterable<HashTableEntry<K, V>> {
 
     /**

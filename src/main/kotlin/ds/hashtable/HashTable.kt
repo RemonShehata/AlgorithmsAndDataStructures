@@ -5,7 +5,6 @@ import ds.linked_list.SinglyLinkedListNode
 import java.util.logging.Level
 import java.util.logging.Logger
 
-// TODO: add dokka
 class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     companion object {
         private const val defaultCapacity = 16
@@ -24,11 +23,17 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         return key.hashCode() % arraySize
     }
 
+    /**
+     * Maps the specified key to the specified value in this hashtable.
+     */
     override fun put(key: K, value: V) {
         val entry = HashTableEntry(key, value)
         put(entry)
     }
 
+    /**
+     * adds the [entry] to this hashtable.
+     */
     override fun put(entry: HashTableEntry<K, V>) {
         if (atMaximumCapacity) {
             allocateLargerArray()
@@ -95,14 +100,23 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
     }
 
 
+    /**
+     * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
+     */
     override operator fun get(key: K): V? {
         return getValue(key)
     }
 
+    /**
+     * Maps the specified key to the specified value in this hashtable.
+     */
     override operator fun set(key: K, value: V) {
         put(key, value)
     }
 
+    /**
+     * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
+     */
     override fun getValue(key: K): V? {
         val index = calculateHashCode(key)
         entries[index]?.let {
@@ -111,6 +125,10 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         return null
     }
 
+    /**
+     * Adds [entry] if and only if the entry didn't exist.
+     * @return <code>true</code> if successful or <code>false</code> if the value existed.
+     */
     override fun addIfAbsent(entry: HashTableEntry<K, V>): Boolean {
         return if (this.contains(entry)) false
         else {
@@ -119,6 +137,9 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         }
     }
 
+    /**
+     * Returns true if this hashtable maps one or more keys to this value.
+     */
     override fun contains(entry: HashTableEntry<K, V>): Boolean {
         entries.forEach { list ->
             list?.let {
@@ -130,6 +151,9 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         return false
     }
 
+    /**
+     * Tests if the specified object is a key in this hashtable.
+     */
     override fun containsKey(key: K): Boolean {
         entries.forEach { list ->
             list?.let {
@@ -140,6 +164,9 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         return false
     }
 
+    /**
+     * Returns true if this hashtable maps one or more keys to this value.
+     */
     override fun containsValue(value: V): Boolean {
         entries.forEach { list ->
             list?.let {
@@ -149,6 +176,10 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         return false
     }
 
+    /**
+     * Removes the value of the first key in the hashtable
+     * @return <code>true</code> if successful or <code>false</code> if the key didn't exist.
+     */
     override fun remove(key: K): Boolean {
         if (!containsKey(key)) return false
         val index = calculateHashCode(key)
@@ -166,6 +197,9 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         }
     }
 
+    /**
+     * Clears this hashtable so that it contains no keys.
+     */
     override fun clear() {
         for (i in entries.indices) {
             entries[i] = null
@@ -173,6 +207,9 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
         count = 0
     }
 
+    /**
+     * Tests if this hashtable maps no keys to values.
+     */
     override fun isEmpty(): Boolean = count == 0
 
     override fun iterator() = object : Iterator<HashTableEntry<K, V>> {
