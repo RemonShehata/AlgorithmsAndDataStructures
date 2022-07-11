@@ -91,8 +91,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
     override fun remove(value: T): Boolean {
         if (count == 0) return false
         else if (value == head!!.value) {
-            removeHead()
-            return true
+            return removeHead()
         }
 
         var current = head
@@ -128,8 +127,7 @@ class SinglyLinkedList<T> : ISinglyLinkedList<T> {
             throw IllegalArgumentException("index must be between 0 and count")
 
         if (index == 0) {
-            removeHead()
-            return true
+            return removeHead()
         }
 
         var counter = 0
