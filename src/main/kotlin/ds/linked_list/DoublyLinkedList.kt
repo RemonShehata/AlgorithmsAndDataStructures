@@ -101,29 +101,6 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
                 count++
             }
         }
-        // replaced if with when
-
-//        if (index == 0) {
-//            addHead(node)
-//            return
-//        } else if (index == count) {
-//            addTail(node)
-//            return
-//        }
-//
-//        var counter = 0
-//        var current = head
-//        while (counter != index - 1) {
-//            current = current!!.next
-//            counter++
-//        }
-//
-//        node.next = current!!.next
-//        node.previous = current
-//        current.next!!.previous = node
-//        current.next = node
-//
-//        count++
     }
 
     /**
