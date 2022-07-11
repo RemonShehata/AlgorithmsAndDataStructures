@@ -203,18 +203,20 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     override fun remove(value: T): Boolean {
         if (count == 0) return false
         else if (value == head!!.value) {
-            removeHead()
+            return removeHead()
             return true
         } else if (value == tail!!.value) {
-            removeTail()
+            return removeTail()
             return true
         }
 
         var current = head
         while (current!!.next != null) {
             if (current.next!!.value == value) {
-                //tail not updated?
+                // tail must be updated first
+                current.next!!.next!!.previous = current
                 current.next = current.next!!.next
+
                 count--
                 return true
             }
