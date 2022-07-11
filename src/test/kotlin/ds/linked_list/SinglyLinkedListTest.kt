@@ -303,7 +303,7 @@ internal class SinglyLinkedListTest {
 
     //region removeAtIndex
     @Test
-    fun `given list and node value, when removeAtIndex is called with index -1, exception is thrown`() {
+    fun `given a list, when removeAtIndex is called with index -1, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
 
@@ -315,7 +315,7 @@ internal class SinglyLinkedListTest {
     }
 
     @Test
-    fun `given list and node, when removeAtIndex is called with index greater than count, exception is thrown`() {
+    fun `given a list, when removeAtIndex is called with index greater than count, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
 
@@ -327,7 +327,7 @@ internal class SinglyLinkedListTest {
     }
 
     @Test
-    fun `given a multiple node-list with one node, when removeAtIndex is called with index 1, the value after head is removed`() {
+    fun `given a multiple node-list, when removeAtIndex is called with index 1, the value after head is removed`() {
         // GIVEN
         val oneItemSinglyLinkedList = SinglyLinkedList<Int>().also {
             it.addHead(1)
@@ -366,7 +366,7 @@ internal class SinglyLinkedListTest {
 
     //region contains tests
     @Test
-    fun `given empty list, when contains is called with any value, then returns false`() {
+    fun `given an empty list, when contains is called with any value, then returns false`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
 
@@ -444,7 +444,7 @@ internal class SinglyLinkedListTest {
 
     //region find tests
     @Test
-    fun `given empty list, when find is called with any value, then returns null`() {
+    fun `given an empty list, when find is called with any value, then returns null`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
 
@@ -526,7 +526,7 @@ internal class SinglyLinkedListTest {
 
     //region indexOf tests
     @Test
-    fun `given empty list, when indexOf is called with any value, then returns -1`() {
+    fun `given an empty list, when indexOf is called with any value, then returns -1`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
 
