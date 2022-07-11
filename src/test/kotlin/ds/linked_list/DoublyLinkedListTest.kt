@@ -493,6 +493,35 @@ internal class DoublyLinkedListTest {
         assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.tail!!.value)
     }
 
+    // this test specifically to make sure that the tail in updated not just head
+    @Test
+    fun `given multiple node-list with 5 values, when remove is called with existing value, return true and update the list`() {
+        // GIVEN
+        val multiItemDoublyLinkedList = DoublyLinkedList<Int>().apply {
+            addHead(5)
+            addHead(4)
+            addHead(3)
+            addHead(2)
+            addHead(1)
+        }
+
+        // WHEN
+        val result = multiItemDoublyLinkedList.remove(3)
+
+        // THEN
+        val expectedHeadNextValue = 2
+        val expectedHeadNextNextValue = 4
+        val expectedPreviousOfHeadNextNextValue = 2
+        val expectedCount = 4
+        assertTrue(result)
+        assertNotNull(multiItemDoublyLinkedList.head)
+        assertNotNull(multiItemDoublyLinkedList.tail)
+        assertEquals(expectedCount, multiItemDoublyLinkedList.count)
+        assertEquals(expectedHeadNextValue, multiItemDoublyLinkedList.head!!.next!!.value)
+        assertEquals(expectedHeadNextNextValue, multiItemDoublyLinkedList.head!!.next!!.next!!.value)
+        assertEquals(expectedPreviousOfHeadNextNextValue, multiItemDoublyLinkedList.head!!.next!!.next!!.previous!!.value)
+    }
+
     @Test
     fun `given multiple node-list, when remove is called with existing value equal to head, return true and update the list`() {
         // GIVEN
