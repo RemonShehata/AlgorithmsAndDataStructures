@@ -76,9 +76,29 @@ internal class SinglyLinkedListTest {
     }
 
     @Test
-    fun `given list and node, when add at index is called with index greater than count, exception is thrown`() {
+    fun `given an empty list and a node, when add at index is called with index greater than count, exception is thrown`() {
         // GIVEN
         val emptySinglyLinkedList = SinglyLinkedList<Int>()
+        val nodeValue = 5
+
+        // WHEN
+        val index = 1
+
+        // THEN
+        assertThrows<IllegalArgumentException> {
+            emptySinglyLinkedList.addAtIndex(
+                index,
+                nodeValue
+            )
+        }
+    }
+
+    @Test
+    fun `given a list and a node, when add at index is called with index greater than count, exception is thrown`() {
+        // GIVEN
+        val emptySinglyLinkedList = SinglyLinkedList<Int>().apply {
+            addHead(1)
+        }
         val nodeValue = 5
 
         // WHEN
