@@ -82,27 +82,48 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
         if (index > count || index < 0)
             throw IllegalArgumentException("index must be between 0 and count")
 
-        if (index == 0) {
-            addHead(node)
-            return
-        } else if (index == count) {
-            addTail(node)
-            return
+        when(index){
+            0 -> addHead(node)
+            count -> addTail(node) // index == count
+            else -> {
+                var counter = 0
+                var current = head
+                while (counter != index - 1) {
+                    current = current!!.next
+                    counter++
+                }
+
+                node.next = current!!.next
+                node.previous = current
+                current.next!!.previous = node
+                current.next = node
+
+                count++
+            }
         }
+        // replaced if with when
 
-        var counter = 0
-        var current = head
-        while (counter != index - 1) {
-            current = current!!.next
-            counter++
-        }
-
-        node.next = current!!.next
-        node.previous = current
-        current.next!!.previous = node
-        current.next = node
-
-        count++
+//        if (index == 0) {
+//            addHead(node)
+//            return
+//        } else if (index == count) {
+//            addTail(node)
+//            return
+//        }
+//
+//        var counter = 0
+//        var current = head
+//        while (counter != index - 1) {
+//            current = current!!.next
+//            counter++
+//        }
+//
+//        node.next = current!!.next
+//        node.previous = current
+//        current.next!!.previous = node
+//        current.next = node
+//
+//        count++
     }
 
     /**
