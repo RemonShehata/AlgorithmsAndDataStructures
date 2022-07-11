@@ -54,7 +54,6 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
     override fun addTail(node: DoublyLinkedListNode<T>) {
         if (count == 0) {
             head = node
-            tail = node // can be removed
         } else {
             tail!!.next = node
             node.previous = tail
