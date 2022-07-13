@@ -84,7 +84,8 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * And <code>false</code> if the [bstNode] value didn't exist.
      */
     override fun remove(bstNode: BinarySearchTreeNode<T>): Boolean {
-
+        //TODO: optimize this; we search O(log n) then find parent O(log n) then remove O(log n)
+        // which sum up to ? . can we do it in one loop?
         val nodeToRemove = search(bstNode) ?: return false
 
         val parentOfNodeToRemove = findParent(nodeToRemove) //if null then I am removing root
