@@ -67,7 +67,7 @@ class Stack<E> : IStack<E> {
      */
     override fun indexOf(item: E): Int {
         if (this.isEmpty()) return -1
-        var index = 0
+        var index = 1
         this.forEach {
             if (it == item) return index
             index++

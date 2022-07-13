@@ -158,12 +158,12 @@ internal class StackTest {
         val result = stack.indexOf(5)
 
         //THEN
-        val expectedResult = 0
+        val expectedResult = 1
         assertEquals(expectedResult, result)
     }
 
     @Test
-    fun `given a stack, when indexOf is called with bottom value, count -1 is returned`() {
+    fun `given a stack, when indexOf is called with bottom value, count is returned`() {
         // GIVEN
         val stack = Stack<Int>().apply {
             push(1)
@@ -177,9 +177,9 @@ internal class StackTest {
         val result = stack.indexOf(1)
 
         //THEN
-        val expectedResult = 4
+        val expectedResult = 5
         assertEquals(expectedResult, result)
-        assertEquals(expectedResult, stack.count -1)
+        assertEquals(expectedResult, stack.count)
     }
 
     @Test
@@ -199,9 +199,9 @@ internal class StackTest {
         val result3 = stack.indexOf(4)
 
         //THEN
-        val expectedResult1 = 3
-        val expectedResult2 = 2
-        val expectedResult3 = 1
+        val expectedResult1 = 4
+        val expectedResult2 = 3
+        val expectedResult3 = 2
         assertEquals(expectedResult1, result1)
         assertEquals(expectedResult2, result2)
         assertEquals(expectedResult3, result3)
