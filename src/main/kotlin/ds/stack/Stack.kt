@@ -66,7 +66,14 @@ class Stack<E> : IStack<E> {
      *          indicates that the object is not on the stack.
      */
     override fun indexOf(item: E): Int {
-        TODO("Not yet implemented")
+        if (this.isEmpty()) return -1
+        var index = 0
+        this.forEach {
+            if (it == item) return index
+            index++
+        }
+
+        return -1
     }
 
     override fun iterator() = store.iterator()
