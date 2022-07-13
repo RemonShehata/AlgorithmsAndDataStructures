@@ -129,6 +129,86 @@ internal class StackTest {
     }
     //endregion
 
+    //region indexOf tests
+    @Test
+    fun `given an empty stack, when indexOf is called with any value, -1 is returned`() {
+        // GIVEN
+        val stack = Stack<Int>()
+
+        // WHEN
+        val result = stack.indexOf(5)
+
+        //THEN
+        val expectedResult = -1
+        assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `given a stack, when indexOf is called with top value, 0 is returned`() {
+        // GIVEN
+        val stack = Stack<Int>().apply {
+            push(1)
+            push(2)
+            push(3)
+            push(4)
+            push(5)
+        }
+
+        // WHEN
+        val result = stack.indexOf(5)
+
+        //THEN
+        val expectedResult = 0
+        assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `given a stack, when indexOf is called with bottom value, count -1 is returned`() {
+        // GIVEN
+        val stack = Stack<Int>().apply {
+            push(1)
+            push(2)
+            push(3)
+            push(4)
+            push(5)
+        }
+
+        // WHEN
+        val result = stack.indexOf(1)
+
+        //THEN
+        val expectedResult = 4
+        assertEquals(expectedResult, result)
+        assertEquals(expectedResult, stack.count -1)
+    }
+
+    @Test
+    fun `given a stack, when indexOf is called with a value in the middle, correct index is returned`() {
+        // GIVEN
+        val stack = Stack<Int>().apply {
+            push(1)
+            push(2)
+            push(3)
+            push(4)
+            push(5)
+        }
+
+        // WHEN
+        val result1 = stack.indexOf(2)
+        val result2 = stack.indexOf(3)
+        val result3 = stack.indexOf(4)
+
+        //THEN
+        val expectedResult1 = 3
+        val expectedResult2 = 2
+        val expectedResult3 = 1
+        assertEquals(expectedResult1, result1)
+        assertEquals(expectedResult2, result2)
+        assertEquals(expectedResult3, result3)
+    }
+
+    //endregion
+
     //region Iterable tests
     @Test
     fun `given an empty stack, when iterated through, number of iterations is zero`() {
