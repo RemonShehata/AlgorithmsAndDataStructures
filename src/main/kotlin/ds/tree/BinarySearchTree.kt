@@ -8,10 +8,12 @@ data class BinarySearchTreeNode<T : Comparable<T>>(
     var left: BinarySearchTreeNode<T>? = null,
     var right: BinarySearchTreeNode<T>? = null
 ) : Comparable<T> {
+    // implementation can be done without this function
     override fun compareTo(other: T): Int {
         return this.data.compareTo(other)
     }
 
+    // provide comparing to the node itself instead of the value.
     fun compareTo(other: BinarySearchTreeNode<T>): Int {
         return this.data.compareTo(other.data)
     }

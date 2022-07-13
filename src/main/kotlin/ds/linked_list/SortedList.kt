@@ -10,10 +10,12 @@ class SortedListNode<T : Comparable<T>>(var value: T) : Comparable<T> {
      * - -> this < other
      * + -> this > other
      */
+    // implementation can be done without this function
     override fun compareTo(other: T): Int {
         return this.value.compareTo(other)
     }
 
+    // provide comparing to the node itself instead of the value.
     fun compareTo(other: SortedListNode<T>): Int {
         return this.value.compareTo(other.value)
     }
