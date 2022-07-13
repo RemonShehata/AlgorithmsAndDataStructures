@@ -80,8 +80,10 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
         head = node
         head!!.next = temp
 
-        if (count == 0) tail = head
-        else temp!!.previous = head
+//        if (count == 0) tail = head
+//        else temp!!.previous = head
+
+        temp?.let { it.previous = head } ?: kotlin.run { tail = head }
         count++
     }
 
@@ -91,13 +93,9 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
     }
 
     private fun addTail(node: SortedListNode<T>) {
-        if (count == 0) {
-            head = node
-            tail = node // can be removed
-        } else {
-            tail!!.next = node
-            node.previous = tail
-        }
+        // if list is empty we add to head
+        tail!!.next = node
+        node.previous = tail
 
         tail = node
         count++
