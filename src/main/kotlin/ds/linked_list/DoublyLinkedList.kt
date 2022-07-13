@@ -1,5 +1,7 @@
 package ds.linked_list
 
+import kotlin.math.abs
+
 // TODO: make optimization for addAtIndex / removeAtIndex
 // see if the index is closer to the head or tail and start from there.
 class DoublyLinkedListNode<T>(var value: T) {
@@ -86,21 +88,58 @@ class DoublyLinkedList<T> : IDoublyLinkedList<T> {
             0 -> addHead(node)
             count -> addTail(node) // index == count
             else -> {
-                var counter = 0
-                var current = head
-                while (counter != index - 1) {
-                    current = current!!.next
-                    counter++
-                }
 
-                node.next = current!!.next
-                node.previous = current
-                current.next!!.previous = node
-                current.next = node
-
-                count++
+                val distanceFromHead = abs(0 - index)
+                val distanceFromTail = (count - 1) - index // count - 1 because we are 0 based index
+                if (distanceFromHead < distanceFromTail || count == 2) addAtIndexFromHead(index, node)
+                else addAtIndexFromTail(index,node)
+//                var counter = 0
+//                var current = head
+//                while (counter != index - 1) {
+//                    current = current!!.next
+//                    counter++
+//                }
+//
+//                node.next = current!!.next
+//                node.previous = current
+//                current.next!!.previous = node
+//                current.next = node
+//
+//                count++
             }
         }
+    }
+
+    private fun addAtIndexFromHead(index: Int, node: DoublyLinkedListNode<T>){
+        var counter = 0
+        var current = head
+        while (counter != index - 1) {
+            current = current!!.next
+            counter++
+        }
+
+        node.next = current!!.next
+        node.previous = current
+        current.next!!.previous = node
+        current.next = node
+
+        count++
+    }
+
+    private fun addAtIndexFromTail(index: Int, node: DoublyLinkedListNode<T>){
+        var counter = count - 1
+        var current = tail
+        while (counter != index) {
+            current = current!!.previous
+            counter--
+        }
+
+        node.next = current!!
+        node.previous = current.previous
+        current.previous!!.next = node
+        current.next = node
+
+        count++
     }
 
     /**
