@@ -119,7 +119,8 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
      * @return false if the value did not exist.
      */
     override fun remove(node: SortedListNode<T>): Boolean {
-        if (!contains(node)) return false
+//        if (!contains(node)) return false // this adds time complexity
+        if (count == 0) return false
         else if (head!!.compareTo(node) == 0) {
             removeHead()
             return true
@@ -154,8 +155,6 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
      * @return false if the value did not exist.
      */
     private fun removeHead(): Boolean {
-        if (count == 0) return false
-
         head = head!!.next
         count--
         if (count == 0) {
@@ -172,8 +171,6 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
      * @return false if the value did not exist.
      */
     private fun removeTail(): Boolean {
-        if (count == 0) return false
-
         tail = tail!!.previous
         count--
 
