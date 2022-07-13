@@ -261,6 +261,7 @@ class BinarySearchTree<T : Comparable<T>> : IBinarySearchTree<T> {
      * clear the tree, And reset everything.
      */
     override fun clear() {
+        //TODO: traverse the tree using post order traversal and remove all nodes.
         root = null
         count = 0
     }
