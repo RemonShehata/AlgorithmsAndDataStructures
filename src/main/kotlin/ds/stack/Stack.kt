@@ -60,7 +60,7 @@ class Stack<E> : IStack<E> {
      * method is used to compare <tt>o</tt> to the
      * items in this stack.
      *
-     * @param   o   the desired object.
+     * @param   item   the desired object.
      * @return  the 1-based position from the top of the stack where
      *          the object is located; the return value <code>-1</code>
      *          indicates that the object is not on the stack.
