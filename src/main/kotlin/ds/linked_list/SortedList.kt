@@ -25,17 +25,11 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
         private set
 
     var head: SortedListNode<T>? = null
-        private set(value) {
-            cursor = value
-            field = value
-        }
+        private set
 
     var tail: SortedListNode<T>? = null
         private set
-
-    // This is needed for iterator functionality.
-    private var cursor: SortedListNode<T>? = null
-
+    
     /**
      * adds [SortedListNode] in sort order in [ISortedList].
      */
