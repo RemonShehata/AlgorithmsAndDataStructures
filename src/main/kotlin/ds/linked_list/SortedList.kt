@@ -29,7 +29,7 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
 
     var tail: SortedListNode<T>? = null
         private set
-    
+
     /**
      * adds [SortedListNode] in sort order in [ISortedList].
      */
@@ -38,16 +38,18 @@ class SortedList<T : Comparable<T>> : ISortedList<T> {
          * if empty add head
          * if head is greater than node, add to head
          * if node is greater than tail, add to tail
-         * else find insertion point
+         * else find insertion point;
+         * we find the first element bigger than our node value
+         * insert our node before it
          */
         when {
-            count == 0 -> addHead(node)
-            head!!.compareTo(node) >= 0 -> addHead(node) // head is greater than node
+            // list is empty or head is greater than node
+            count == 0 ||  head!!.compareTo(node) >= 0 -> addHead(node)
             tail!!.compareTo(node) < 0 -> addTail(node) // node is greater than tail
             else -> {
                 // find insertion point
-                var insertBefore = head
-                while (insertBefore!!.compareTo(node) < 0) {
+                var insertBefore = head!! // at this point head can't be null
+                while (insertBefore.compareTo(node) < 0) { // insertBefore > other
                     insertBefore = insertBefore.next!!
                 }
 
