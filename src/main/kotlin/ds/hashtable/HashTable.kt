@@ -155,6 +155,11 @@ class HashTable<K, V>(initialCapacity: Int?) : IHashTable<K, V> {
      * Tests if the specified object is a key in this hashtable.
      */
     override fun containsKey(key: K): Boolean {
+        // TODO: This should be done in O(1)
+//        val index = calculateHashCode(key)
+//        entries[index]?.let {
+//            return it getValueForKey key
+//        }
         entries.forEach { list ->
             list?.let {
                 if (it keyExist key) return true
