@@ -8,7 +8,7 @@ package algo
 //}
 
 // TODO: implement generic function
-fun bubbleSort(list: Array<Int>){
+fun bubbleSort(list: Array<Int>) {
     var swapsMade: Boolean
 
     do {
@@ -22,4 +22,17 @@ fun bubbleSort(list: Array<Int>){
             }
         }
     } while (swapsMade)
+}
+
+fun bubbleSort2(array: Array<Int>) {
+    for (i in array.indices) {
+        for (j in 0 until array.size - i - 1) {
+            if (array[j + 1] < array[j]) {
+                val temp = array[j + 1]
+                array[j + 1] = array[j]
+                array[j] = temp
+            }
+        }
+    }
+}
 }
