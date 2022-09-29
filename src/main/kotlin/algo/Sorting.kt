@@ -47,3 +47,60 @@ fun insertionSort(array: Array<Int>) {
         array[j + 1] = currentValue
     }
 }
+
+fun mergeSort(array: Array<Int>) {
+
+    if (array.size < 2) return
+
+    // split the array into 2 half
+    val middle = array.size / 2
+    val leftHalf = Array<Int>(middle) { 0 }
+    val rightHalf = Array<Int>(array.size - middle) { 0 }
+
+    for (i in 0 until middle) {
+        leftHalf[i] = array[i]
+    }
+
+    for (i in middle until array.size) {
+        rightHalf[i - middle] = array[i]
+    }
+
+    // call mergeSort recursively
+    mergeSort(leftHalf)
+    mergeSort(rightHalf)
+
+    // merge the sorted halfs
+    merge(array, leftHalf, rightHalf)
+    println()
+}
+
+private fun merge(mergedArray: Array<Int>, leftHalf: Array<Int>, rightHalf: Array<Int>) {
+//    val mergedArray = Array<Int>(leftHalf.size + rightHalf.size) { 0 }
+    var leftIndex = 0
+    var rightIndex = 0
+    var mergedIndex = 0
+
+    while (leftIndex < leftHalf.size && rightIndex < rightHalf.size) {
+        if (leftHalf[leftIndex] < rightHalf[rightIndex]) {
+            mergedArray[mergedIndex] = leftHalf[leftIndex]
+            leftIndex++
+        } else {
+            mergedArray[mergedIndex] = rightHalf[rightIndex]
+            rightIndex++
+        }
+        mergedIndex++
+    }
+
+    // in case one of the arrays didn't reach the end
+    while (leftIndex < leftHalf.size) {
+        mergedArray[mergedIndex] = leftHalf[leftIndex]
+        leftIndex++
+        mergedIndex++
+    }
+
+    while (rightIndex < rightHalf.size) {
+        mergedArray[mergedIndex] = rightHalf[rightIndex]
+        rightIndex++
+        mergedIndex++
+    }
+}
